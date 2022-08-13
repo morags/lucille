@@ -22,7 +22,7 @@ import {
   ButtonGroup,
   IconButton,
   useEditableControls,
-  // Button,
+  Button,
   LinkBox,
   LinkOverlay,
   // VisuallyHidden,
@@ -79,6 +79,7 @@ function PinnedList() {
       display="flex"
       alignItems="center"
       justifyContent="center"
+      boxShadow="5px 5px 5px rgb(137, 137, 137)"
     >
       <Editable defaultValue="Weekend shop">
         <EditablePreview />
@@ -90,12 +91,26 @@ function PinnedList() {
   );
 }
 
-// function PinnedList(props) {
-//   const prop = props;
-//   return (
-
-//   )
-// }
+function CircularBtn() {
+  return (
+    <Button
+      border="3px"
+      borderColor="#a9a9a9"
+      // bgImage='url( ${prop.fileLoc} )'
+      bgImage="url('/img/list_footer_btn.png')"
+      borderRadius="37.5px"
+      w="75px"
+      h="75px" // h = (205/200) x w
+      bgSize="100%"
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      boxShadow="5px 5px 5px rgb(137, 137, 137)"
+    />
+  );
+}
 
 // function ListPage() {
 //   return (<p>This is list page</p>);
@@ -106,7 +121,7 @@ function PinnedList() {
 
 function App() {
   // TODO: What does this do? Delete disableError.
-  const [items] = useState([1, 2, 3, 4, 5, 6]);
+  const [items] = useState([1, 2, 3]);
   const navIconsLoc = ['/img/board_nav_btn.png', '/img/archive_nav_btn.png', '/img/guide_nav_btn.png', '/img/contact_nav_btn.png', '/img/setup_nav_btn.png'];
   const navIcons = navIconsLoc.map((navIcon) => <TabComp fileLoc={navIcon} />);
   // const routes = (
@@ -120,7 +135,7 @@ function App() {
   return (
     <ChakraProvider className="App">
       <Center w="100vw">
-        <Container w="720px" h="850px" bg="#e8e8e6" marginTop="20px" centerContent>
+        <Container w="720px" h="730px" bg="#e8e8e6" marginTop="20px" centerContent>
 
           <Tabs align="center" size="lg" variant="enclosed">
 
@@ -130,13 +145,30 @@ function App() {
 
             <TabPanels>
 
-              <TabPanel border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px" bg="#cedcbf" h="450px">
+              <TabPanel position="absolute" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px" bg="#cedcbf" h="550px" w="490px">
                 <SimpleGrid columns={3} spacing={10}>
                   <Boxes items={items} />
-                  <LinkBox>
-                    <LinkOverlay href="/board" />
-                    <PinnedList />
-                  </LinkBox>
+                  <Box>
+                    <LinkBox>
+                      <LinkOverlay href="/board" />
+                      <PinnedList />
+                    </LinkBox>
+                  </Box>
+                  <Box>
+                    <LinkBox>
+                      <LinkOverlay href="/board" />
+                      <PinnedList />
+                    </LinkBox>
+                  </Box>
+                </SimpleGrid>
+                <SimpleGrid columns={5} spacing={15} position="relative" bottom="-265px">
+                  <Box />
+                  <Box />
+                  <Box />
+                  <Box />
+                  <Box>
+                    <CircularBtn />
+                  </Box>
                 </SimpleGrid>
               </TabPanel>
 
