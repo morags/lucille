@@ -97,14 +97,18 @@ function PinnedList() {
 
 function CircularBtn(props) {
   const prop = props;
+  let size = '75px';
+  if (prop.size === 'small') {
+    size = '60px';
+  }
   return (
     <Button
       border="3px"
       borderColor="#a9a9a9"
       bgImage={`url( ${prop.fileLoc} )`}
       borderRadius="37.5px"
-      w="75px"
-      h="75px" // h = (205/200) x w
+      w={size}
+      h={size}
       bgSize="100%"
       bgPosition="center"
       bgRepeat="no-repeat"
@@ -115,7 +119,28 @@ function CircularBtn(props) {
     />
   );
 }
+// Setup page: individual settings
+function Settings(props) {
+  const prop = props;
+  // title, btn1, brn-2, demo element
+  return (
+    <Box h="100px" bg="transparent">
+      <Grid
+        templateAreas={`"title title title"
+                        "circBtn1 demo circBtn2"`}
+        gridTemplateRows="30px 70px"
+        gridTemplateColumns="100px 1fr 100px"
+        gap="3"
+      >
+        <GridItem pl="5" align="left" justifyContent="Center" fontSize="23px" area="title">{prop.title}</GridItem>
+        <GridItem pl="2" area="circBtn1"><CircularBtn fileLoc={prop.btn1} size="small" /></GridItem>
+        <GridItem pl="2" area="demo">btn</GridItem>
+        <GridItem pl="2" area="circBtn2"><CircularBtn fileLoc={prop.btn1} size="small" /></GridItem>
 
+      </Grid>
+    </Box>
+  );
+}
 // function ListPage() {
 //   return (<p>This is list page</p>);
 // }
@@ -203,30 +228,10 @@ function App() {
                   spacing={4}
                   align="stretch"
                 >
-                  <Box h="100px" bg="transparent">
-                    <Grid
-                      templateAreas={`"title title title"
-                                      "circBtn1 demo circBtn2"`}
-                      gridTemplateRows="30px 70px"
-                      gridTemplateColumns="100px 1fr 100px"
-                      gap="1"
-                    >
-                      <GridItem pl="2" bg="orange.300" area="title">title</GridItem>
-                      <GridItem pl="2" bg="orange.300" area="circBtn1">btn1</GridItem>
-                      <GridItem pl="2" bg="orange.300" area="demo">btn</GridItem>
-                      <GridItem pl="2" bg="orange.300" area="circBtn2">btn2</GridItem>
-
-                    </Grid>
-                  </Box>
-                  <Box h="100px">
-                    2
-                  </Box>
-                  <Box h="100px" bg="pink.100">
-                    3
-                  </Box>
-                  <Box h="100px" bg="pink.100">
-                    3
-                  </Box>
+                  <Settings title="Font size: " btn1="/img/font_down_btn.png" btn2="/img/font_up_btn.png" />
+                  <Settings title="Brightness: " btn1="/img/bright_down_btn.png" btn2="/img/bright_up_btn.png" />
+                  <Settings title="Volume: " btn1="/img/vol_down_btn.png" btn2="/img/vol_up_btn.png" />
+                  <Settings title="Vibration: " btn1="/img/vibr_down_btn.png" btn2="/img/vibr_up_btn.png" />
                 </VStack>
               </TabPanel>
 
