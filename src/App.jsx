@@ -29,6 +29,7 @@ import {
   LinkOverlay,
   Grid,
   GridItem,
+  Text,
   // VisuallyHidden,
   // VisuallyHiddenInput,
 } from '@chakra-ui/react';
@@ -95,6 +96,17 @@ function PinnedList() {
   );
 }
 
+// const globalFontSize = 20;
+let globalFontSize = 20;
+function changeFontSize(num) {
+  const changeValue = num;
+  const maxFnt = 26;
+  const minFnt = 16;
+  let result = globalFontSize + changeValue;
+  result = Math.min(Math.max(result, minFnt), maxFnt);
+  globalFontSize = result;
+  console.log(globalFontSize);
+}
 function CircularBtn(props) {
   const prop = props;
   let size = '75px';
@@ -116,10 +128,20 @@ function CircularBtn(props) {
       alignItems="center"
       justifyContent="center"
       boxShadow="5px 5px 5px rgb(137, 137, 137)"
+      onClick={() => changeFontSize(1)}
     />
   );
 }
 // Setup page: individual settings
+
+function DisplayDemo() {
+  return (
+    <Box bgColor="rgb(255)">
+      <Text fontSize={globalFontSize}>I can read this well.</Text>
+    </Box>
+  );
+}
+
 function Settings(props) {
   const prop = props;
   // title, btn1, brn-2, demo element
@@ -134,13 +156,14 @@ function Settings(props) {
       >
         <GridItem pl="5" align="left" justifyContent="Center" fontSize="23px" area="title">{prop.title}</GridItem>
         <GridItem pl="2" area="circBtn1"><CircularBtn fileLoc={prop.btn1} size="small" /></GridItem>
-        <GridItem pl="2" area="demo">btn</GridItem>
-        <GridItem pl="2" area="circBtn2"><CircularBtn fileLoc={prop.btn1} size="small" /></GridItem>
+        <GridItem pl="2" area="demo"><DisplayDemo /></GridItem>
+        <GridItem pl="2" area="circBtn2"><CircularBtn fileLoc={prop.btn2} size="small" /></GridItem>
 
       </Grid>
     </Box>
   );
 }
+
 // function ListPage() {
 //   return (<p>This is list page</p>);
 // }
