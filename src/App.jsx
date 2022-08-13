@@ -18,13 +18,17 @@ import {
   EditablePreview,
   // Image,
   Input,
+  VStack,
   Flex,
   ButtonGroup,
   IconButton,
   useEditableControls,
   Button,
+  StackDivider,
   LinkBox,
   LinkOverlay,
+  Grid,
+  GridItem,
   // VisuallyHidden,
   // VisuallyHiddenInput,
 } from '@chakra-ui/react';
@@ -91,13 +95,13 @@ function PinnedList() {
   );
 }
 
-function CircularBtn() {
+function CircularBtn(props) {
+  const prop = props;
   return (
     <Button
       border="3px"
       borderColor="#a9a9a9"
-      // bgImage='url( ${prop.fileLoc} )'
-      bgImage="url('/img/list_footer_btn.png')"
+      bgImage={`url( ${prop.fileLoc} )`}
       borderRadius="37.5px"
       w="75px"
       h="75px" // h = (205/200) x w
@@ -167,7 +171,7 @@ function App() {
                   <Box />
                   <Box />
                   <Box>
-                    <CircularBtn />
+                    <CircularBtn fileLoc="/img/list_footer_btn.png" />
                   </Box>
                 </SimpleGrid>
               </TabPanel>
@@ -192,8 +196,38 @@ function App() {
                 <Textarea placeholder="Text" />
               </TabPanel>
 
-              <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
-                <Textarea placeholder="Text" />
+              {/* Setup page */}
+              <TabPanel position="absolute" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px" bg="white" h="550px" w="490px">
+                <VStack
+                  divider={<StackDivider borderColor="gray.200" />}
+                  spacing={4}
+                  align="stretch"
+                >
+                  <Box h="100px" bg="transparent">
+                    <Grid
+                      templateAreas={`"title title title"
+                                      "circBtn1 demo circBtn2"`}
+                      gridTemplateRows="30px 70px"
+                      gridTemplateColumns="100px 1fr 100px"
+                      gap="1"
+                    >
+                      <GridItem pl="2" bg="orange.300" area="title">title</GridItem>
+                      <GridItem pl="2" bg="orange.300" area="circBtn1">btn1</GridItem>
+                      <GridItem pl="2" bg="orange.300" area="demo">btn</GridItem>
+                      <GridItem pl="2" bg="orange.300" area="circBtn2">btn2</GridItem>
+
+                    </Grid>
+                  </Box>
+                  <Box h="100px">
+                    2
+                  </Box>
+                  <Box h="100px" bg="pink.100">
+                    3
+                  </Box>
+                  <Box h="100px" bg="pink.100">
+                    3
+                  </Box>
+                </VStack>
               </TabPanel>
 
             </TabPanels>
