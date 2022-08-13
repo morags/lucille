@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import {
   Box,
@@ -11,8 +12,51 @@ import {
   TabPanel,
   Textarea,
   SimpleGrid,
+  Editable,
+  EditableInput,
+  EditableTextarea,
+  EditablePreview,
+  // Image,
+  Input,
+  Flex,
+  ButtonGroup,
+  IconButton,
+  useEditableControls,
+  // Button,
+  LinkBox,
+  LinkOverlay,
+  // VisuallyHidden,
+  // VisuallyHiddenInput,
 } from '@chakra-ui/react';
+import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons';
 import './App.css';
+// import {
+//   BrowserRouter,
+//   Route,
+//   Redirect,
+//   Switch,
+//   Link,
+// } from 'react-router-dom';
+
+function EditableControls() {
+  const {
+    isEditing,
+    getSubmitButtonProps,
+    getCancelButtonProps,
+    getEditButtonProps,
+  } = useEditableControls();
+
+  return isEditing ? (
+    <ButtonGroup justifyContent="center" size="sm">
+      <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} />
+      <IconButton icon={<CloseIcon />} {...getCancelButtonProps()} />
+    </ButtonGroup>
+  ) : (
+    <Flex justifyContent="center">
+      <IconButton size="sm" icon={<EditIcon />} {...getEditButtonProps()} />
+    </Flex>
+  );
+}
 
 function Boxes(props) {
   return props.items.map((i) => <Box bg="lightgray" height="80px"><Center>{i}</Center></Box>);
@@ -23,12 +67,56 @@ function TabComp(props) {
   return (<Tab padding="3px" bg="#ededeb" margin="10px" boxShadow="5px 5px 5px rgb(137, 137, 137)" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px"><img alt="fjsdkj" src={prop.fileLoc} /></Tab>);
 }
 
+function PinnedList() {
+  return (
+    <Box
+      w="150px"
+      h="153.75px" // h = (205/200) x w
+      bgImage="url('/img/parchment.png')"
+      bgSize="100%"
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Editable defaultValue="Weekend shop">
+        <EditablePreview />
+        <EditableTextarea />
+        <Input as={EditableInput} />
+        <EditableControls />
+      </Editable>
+    </Box>
+  );
+}
+
+// function PinnedList(props) {
+//   const prop = props;
+//   return (
+
+//   )
+// }
+
+// function ListPage() {
+//   return (<p>This is list page</p>);
+// }
+
+// function Profile() { return (<p>Youre on the Profile Tab</p>); }
+// function Comments() { return (<p>Youre on the Comments Tab</p>); }
+
 function App() {
   // TODO: What does this do? Delete disableError.
   const [items] = useState([1, 2, 3, 4, 5, 6]);
   const navIconsLoc = ['/img/board_nav_btn.png', '/img/archive_nav_btn.png', '/img/guide_nav_btn.png', '/img/contact_nav_btn.png', '/img/setup_nav_btn.png'];
   const navIcons = navIconsLoc.map((navIcon) => <TabComp fileLoc={navIcon} />);
-
+  // const routes = (
+  //   <BrowserRouter>
+  //     <Switch>
+  //       <Route path="/home" component={App} />
+  //       <Redirect from="/" to="/home" />
+  //     </Switch>
+  //   </BrowserRouter>
+  // );
   return (
     <ChakraProvider className="App">
       <Center w="100vw">
@@ -45,11 +133,23 @@ function App() {
               <TabPanel border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px" bg="#cedcbf" h="450px">
                 <SimpleGrid columns={3} spacing={10}>
                   <Boxes items={items} />
+                  <LinkBox>
+                    <LinkOverlay href="/board" />
+                    <PinnedList />
+                  </LinkBox>
                 </SimpleGrid>
               </TabPanel>
 
               <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
                 <Textarea placeholder="Text" />
+                {/* <div className="tabs">
+                  <Switch>
+                    <Route path="/home" exact component={Profile} />
+                    <Route path="/home/comments" component={Comments} />
+                  </Switch>
+                </div>
+                <Link to="/" className="link">Profile</Link>
+                <Link to="/home/comments" className="link">Comments</Link> */}
               </TabPanel>
 
               <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
@@ -75,3 +175,4 @@ function App() {
 }
 
 export default App;
+// ReactDOM.render(routes, document.getElementById("root"));
