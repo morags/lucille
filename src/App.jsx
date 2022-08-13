@@ -30,6 +30,11 @@ import {
   Grid,
   GridItem,
   Text,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  // SliderMark,
   // VisuallyHidden,
   // VisuallyHiddenInput,
 } from '@chakra-ui/react';
@@ -135,16 +140,32 @@ function CircularBtn(props) {
 // Setup page: individual settings
 
 function DisplayDemo() {
+  const colours = ['#FFFFFF', '#FAF9F6', '#F1F0ED', '#E5E4E2', '#D9D8D6'];
   return (
-    <Box bgColor="rgb(255)">
+    <Box bgColor={colours[3]} p="10px">
       <Text fontSize={globalFontSize}>I can read this well.</Text>
     </Box>
+  );
+}
+function VolumeDemo() {
+  return (
+    <Slider defaultValue={60} min={0} max={300} step={30}>
+      <SliderTrack bg="red.100">
+        <Box position="relative" right={10} />
+        <SliderFilledTrack bg="tomato" />
+      </SliderTrack>
+      <SliderThumb boxSize={6} />
+    </Slider>
   );
 }
 
 function Settings(props) {
   const prop = props;
   // title, btn1, brn-2, demo element
+  let demo = <DisplayDemo />;
+  if (prop.type === 'volume') {
+    demo = <VolumeDemo />;
+  }
   return (
     <Box h="100px" bg="transparent">
       <Grid
@@ -156,7 +177,7 @@ function Settings(props) {
       >
         <GridItem pl="5" align="left" justifyContent="Center" fontSize="23px" area="title">{prop.title}</GridItem>
         <GridItem pl="2" area="circBtn1"><CircularBtn fileLoc={prop.btn1} size="small" /></GridItem>
-        <GridItem pl="2" area="demo"><DisplayDemo /></GridItem>
+        <GridItem pl="2" area="demo">{demo}</GridItem>
         <GridItem pl="2" area="circBtn2"><CircularBtn fileLoc={prop.btn2} size="small" /></GridItem>
 
       </Grid>
@@ -253,8 +274,8 @@ function App() {
                 >
                   <Settings title="Font size: " btn1="/img/font_down_btn.png" btn2="/img/font_up_btn.png" />
                   <Settings title="Brightness: " btn1="/img/bright_down_btn.png" btn2="/img/bright_up_btn.png" />
-                  <Settings title="Volume: " btn1="/img/vol_down_btn.png" btn2="/img/vol_up_btn.png" />
-                  <Settings title="Vibration: " btn1="/img/vibr_down_btn.png" btn2="/img/vibr_up_btn.png" />
+                  <Settings title="Volume: " type="volume" btn1="/img/vol_down_btn.png" btn2="/img/vol_up_btn.png" />
+                  <Settings title="Vibration: " type="volume" btn1="/img/vibr_down_btn.png" btn2="/img/vibr_up_btn.png" />
                 </VStack>
               </TabPanel>
 
