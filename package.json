@@ -1,6 +1,15 @@
 {
   "name": "lucille",
   "version": "0.1.0",
+  "description": "A to-do app for older users, informed by up-to-date research on usability and accessibility",
+  "license": "MIT",
+  "contributors": [
+    "Morag Scheinwald",
+    "Anugya Sharma",
+    "Isa Phuyuthanon",
+    "Takahisa Hashimoto",
+    "Rodi Ali"
+  ],
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.0.4",
