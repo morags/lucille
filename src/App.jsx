@@ -48,6 +48,9 @@ import './App.css';
 //   Link,
 // } from 'react-router-dom';
 
+// Location of the img folder path in the static build
+const IMGROOT = '/lucille/img';
+
 function EditableControls() {
   const {
     isEditing,
@@ -82,7 +85,7 @@ function PinnedList() {
     <Box
       w="150px"
       h="153.75px" // h = (205/200) x w
-      bgImage="url('/img/parchment.png')"
+      bgImage={`${IMGROOT}/parchment.png`}
       bgSize="100%"
       bgPosition="center"
       bgRepeat="no-repeat"
@@ -195,7 +198,7 @@ function Settings(props) {
 function App() {
   // TODO: What does this do? Delete disableError.
   const [items] = useState([1, 2, 3]);
-  const navIconsLoc = ['/img/board_nav_btn.png', '/img/archive_nav_btn.png', '/img/guide_nav_btn.png', '/img/contact_nav_btn.png', '/img/setup_nav_btn.png'];
+  const navIconsLoc = [`${IMGROOT}/board_nav_btn.png`, `${IMGROOT}/archive_nav_btn.png`, `${IMGROOT}/guide_nav_btn.png`, `${IMGROOT}/contact_nav_btn.png`, `${IMGROOT}/setup_nav_btn.png`];
   const navIcons = navIconsLoc.map((navIcon) => <TabComp fileLoc={navIcon} />);
   // const routes = (
   //   <BrowserRouter>
@@ -240,7 +243,7 @@ function App() {
                   <Box />
                   <Box />
                   <Box>
-                    <CircularBtn fileLoc="/img/list_footer_btn.png" />
+                    <CircularBtn fileLoc={`${IMGROOT}/list_footer_btn.png`} />
                   </Box>
                 </SimpleGrid>
               </TabPanel>
@@ -272,10 +275,10 @@ function App() {
                   spacing={4}
                   align="stretch"
                 >
-                  <Settings title="Font size: " btn1="/img/font_down_btn.png" btn2="/img/font_up_btn.png" />
-                  <Settings title="Brightness: " btn1="/img/bright_down_btn.png" btn2="/img/bright_up_btn.png" />
-                  <Settings title="Volume: " type="volume" btn1="/img/vol_down_btn.png" btn2="/img/vol_up_btn.png" />
-                  <Settings title="Vibration: " type="volume" btn1="/img/vibr_down_btn.png" btn2="/img/vibr_up_btn.png" />
+                  <Settings title="Font size: " btn1={`${IMGROOT}/font_down_btn.png`} btn2={`${IMGROOT}/font_up_btn.png`} />
+                  <Settings title="Brightness: " btn1={`${IMGROOT}/bright_down_btn.png`} btn2={`${IMGROOT}/bright_up_btn.png`} />
+                  <Settings title="Volume: " type="volume" btn1={`${IMGROOT}/vol_down_btn.png`} btn2={`${IMGROOT}/vol_up_btn.png`} />
+                  <Settings title="Vibration: " type="volume" btn1={`${IMGROOT}/vibr_down_btn.png`} btn2={`${IMGROOT}/vibr_up_btn.png`} />
                 </VStack>
               </TabPanel>
 
