@@ -19,6 +19,9 @@ import TabComp from './components/TabComp';
 import Settings from './components/Settings';
 import TestFunc from './components/Test';
 
+// Location of the img folder path in the static build
+const IMGROOT = '/lucille/img';
+
 // const globalFontSize = 20;
 let globalFontSize = 20;
 function changeFontSize(num) {
@@ -33,7 +36,7 @@ function changeFontSize(num) {
 function App() {
   // TODO: What does this do? Delete disableError.
 
-  const navIconsLoc = ['/img/board_nav_btn.png', '/img/archive_nav_btn.png', '/img/guide_nav_btn.png', '/img/contact_nav_btn.png', '/img/setup_nav_btn.png'];
+  const navIconsLoc = [`${IMGROOT}/board_nav_btn.png`, `${IMGROOT}/archive_nav_btn.png`, `${IMGROOT}/guide_nav_btn.png`, `${IMGROOT}/contact_nav_btn.png`, `${IMGROOT}/setup_nav_btn.png`];
   const navIcons = navIconsLoc.map((navIcon) => <TabComp fileLoc={navIcon} />);
   return (
     <Router>
@@ -84,17 +87,17 @@ function App() {
                   <Route
                     path="/page5"
                     element={(
-                    /* Setup page */
+                      /* Setup page */
                       <TabPanel position="absolute" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px" bg="white" h="550px" w="490px">
                         <VStack
                           divider={<StackDivider borderColor="gray.200" />}
                           spacing={4}
                           align="stretch"
                         >
-                          <Settings fontSizeG={globalFontSize} title="Font size: " btn1="/img/font_down_btn.png" btn2="/img/font_up_btn.png" />
-                          <Settings title="Brightness: " btn1="/img/bright_down_btn.png" btn2="/img/bright_up_btn.png" />
-                          <Settings clickHandler={changeFontSize} title="Volume: " type="volume" btn1="/img/vol_down_btn.png" btn2="/img/vol_up_btn.png" />
-                          <Settings title="Vibration: " type="volume" btn1="/img/vibr_down_btn.png" btn2="/img/vibr_up_btn.png" />
+                          <Settings title="Font size: " btn1={`${IMGROOT}/font_down_btn.png`} btn2={`${IMGROOT}/font_up_btn.png`} />
+                          <Settings title="Brightness: " btn1={`${IMGROOT}/bright_down_btn.png`} btn2={`${IMGROOT}/bright_up_btn.png`} />
+                          <Settings title="Volume: " type="volume" btn1={`${IMGROOT}/vol_down_btn.png`} btn2={`${IMGROOT}/vol_up_btn.png`} />
+                          <Settings title="Vibration: " type="volume" btn1={`${IMGROOT}/vibr_down_btn.png`} btn2={`${IMGROOT}/vibr_up_btn.png`} />
                         </VStack>
                       </TabPanel>
                     )}
