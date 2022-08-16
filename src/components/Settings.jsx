@@ -12,7 +12,7 @@ import CircularBtn from './CircularBtn';
 function Settings(props) {
   const prop = props;
   // title, btn1, brn-2, demo element
-  let demo = <DisplayDemo fontSizeG={props.fontSizeG} />;
+  let demo = <DisplayDemo fontSizeG={prop.fontSizeG} />;
   if (prop.type === 'volume') {
     demo = <VolumeDemo />;
   }

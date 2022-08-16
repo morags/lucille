@@ -22,15 +22,15 @@ import TestFunc from './components/Test';
 const IMGROOT = '/lucille/img';
 
 // const globalFontSize = 20;
-let globalFontSize = 20;
-function changeFontSize(num) {
-  const changeValue = num;
-  const maxFnt = 26;
-  const minFnt = 16;
-  let result = globalFontSize + changeValue;
-  result = Math.min(Math.max(result, minFnt), maxFnt);
-  globalFontSize = result;
-}
+// let globalFontSize = 20;
+// function changeFontSize(num) {
+//   const changeValue = num;
+//   const maxFnt = 26;
+//   const minFnt = 16;
+//   let result = globalFontSize + changeValue;
+//   result = Math.min(Math.max(result, minFnt), maxFnt);
+//   globalFontSize = result;
+// }
 
 function App() {
   const navIconsLoc = [`${IMGROOT}/board_nav_btn.png`, `${IMGROOT}/archive_nav_btn.png`, `${IMGROOT}/guide_nav_btn.png`, `${IMGROOT}/contact_nav_btn.png`, `${IMGROOT}/setup_nav_btn.png`];

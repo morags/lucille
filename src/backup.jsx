@@ -90,5 +90,7 @@ function App() {
 
 export default App;
 
-
-<Tab color="#ededeb" boxShadow="dark-lg" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="15px"><img alt="fjsdkj" src="/img/board_nav_btn.png" /></Tab>
+// eslint-disable-next-line no-trailing-spaces, no-lone-blocks
+{ /* <Tab color="#ededeb" boxShadow="dark-lg" border="3px" borderColor="#a9a9a9" 
+borderStyle="solid" borderRadius="15px"><img alt="fjsdkj" src="/img/board_nav_btn.png"
+ /></Tab> */ }

@@ -25,7 +25,7 @@ function CircularBtn(props) {
       alignItems="center"
       justifyContent="center"
       boxShadow="5px 5px 5px rgb(137, 137, 137)"
-      onClick={() => props.clickHandler(1)}
+      onClick={() => prop.clickHandler(1)}
     />
   );
 }
