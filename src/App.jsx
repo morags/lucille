@@ -16,7 +16,6 @@ import './App.css';
 import Home from './pages/Home';
 import TabComp from './components/TabComp';
 import Settings from './components/Settings';
-import TestFunc from './components/Test';
 
 // Location of the img folder path in the static build
 const IMGROOT = '/lucille/img';
@@ -100,7 +99,6 @@ function App() {
                     )}
                   />
 
-                  <Route path="test" element={<TestFunc />} />
                 </Routes>
               </TabPanels>
             </Tabs>
