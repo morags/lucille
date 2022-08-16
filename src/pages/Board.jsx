@@ -13,7 +13,7 @@ import Boxes from '../components/Boxes';
 import PinnedList from '../components/PinnedList';
 import CircularBtn from '../components/CircularBtn';
 
-function Home() {
+export default function Board() {
   const [items] = useState([1, 2, 3]);
   return (
     <Tabs>
@@ -48,5 +48,3 @@ function Home() {
     </Tabs>
   );
 }
-
-export default Home;

@@ -13,7 +13,7 @@ import {
   StackDivider,
 } from '@chakra-ui/react';
 import './App.css';
-import Home from './pages/Home';
+import Board from './pages/Board';
 import TabComp from './components/TabComp';
 import Settings from './components/Settings';
 import TestFunc from './components/Test';
@@ -51,11 +51,11 @@ function App() {
                 <Routes>
                   <Route
                     path="/"
-                    element={<Home />}
+                    element={<Board />}
                     exact
                   />
                   <Route
-                    path="/page2"
+                    path="/archive"
                     element={(
                       <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
                         <Textarea placeholder="Text" />
@@ -64,7 +64,7 @@ function App() {
                   />
 
                   <Route
-                    path="/page3"
+                    path="/guide"
                     element={(
                       <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
                         <Textarea placeholder="Text" />
@@ -73,7 +73,7 @@ function App() {
                   />
 
                   <Route
-                    path="/page4"
+                    path="/contact"
                     element={(
                       <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
                         <Textarea placeholder="Text" />
@@ -82,7 +82,7 @@ function App() {
                   />
 
                   <Route
-                    path="/page5"
+                    path="/settings"
                     element={(
                       /* Setup page */
                       <TabPanel position="absolute" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px" bg="white" h="550px" w="490px">
