@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
@@ -34,8 +33,6 @@ function changeFontSize(num) {
 }
 
 function App() {
-  // TODO: What does this do? Delete disableError.
-
   const navIconsLoc = [`${IMGROOT}/board_nav_btn.png`, `${IMGROOT}/archive_nav_btn.png`, `${IMGROOT}/guide_nav_btn.png`, `${IMGROOT}/contact_nav_btn.png`, `${IMGROOT}/setup_nav_btn.png`];
   const navIcons = navIconsLoc.map((navIcon) => <TabComp fileLoc={navIcon} />);
   return (
