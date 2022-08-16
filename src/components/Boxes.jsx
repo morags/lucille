@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/react';
 
 function Boxes(props) {
-  return props.items.map((i) => <Box bg="lightgray" height="80px"><Center>{i}</Center></Box>);
+  return props.items.map((i) => <Box key={i} bg="lightgray" height="80px"><Center>{i}</Center></Box>);
 }
 
 export default Boxes;

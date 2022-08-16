@@ -34,7 +34,7 @@ const IMGROOT = '/lucille/img';
 
 function App() {
   const navIconsLoc = [`${IMGROOT}/board_nav_btn.png`, `${IMGROOT}/archive_nav_btn.png`, `${IMGROOT}/guide_nav_btn.png`, `${IMGROOT}/contact_nav_btn.png`, `${IMGROOT}/setup_nav_btn.png`];
-  const navIcons = navIconsLoc.map((navIcon) => <TabComp fileLoc={navIcon} />);
+  const navIcons = navIconsLoc.map((navIcon) => <TabComp key={navIcon} fileLoc={navIcon} />);
   return (
     <Router>
       <ChakraProvider className="App">
@@ -50,7 +50,7 @@ function App() {
               <TabPanels>
                 <Routes>
                   <Route
-                    path="/"
+                    path="/lucille"
                     element={<Home />}
                     exact
                   />
