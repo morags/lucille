@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   Center,
   ChakraProvider,
@@ -35,7 +35,7 @@ function App() {
   const navIconsLoc = [`${IMGROOT}/board_nav_btn.png`, `${IMGROOT}/archive_nav_btn.png`, `${IMGROOT}/guide_nav_btn.png`, `${IMGROOT}/contact_nav_btn.png`, `${IMGROOT}/setup_nav_btn.png`];
   const navIcons = navIconsLoc.map((navIcon) => <TabComp key={navIcon} fileLoc={navIcon} />);
   return (
-    <Router basename="/lucille">
+    <Router>
       <ChakraProvider className="App">
         <Center w="100vw">
           <Container w="720px" h="730px" bg="#e8e8e6" marginTop="20px" centerContent>
@@ -49,12 +49,12 @@ function App() {
               <TabPanels>
                 <Routes>
                   <Route
-                    path="/"
+                    path="/lucille"
                     element={<Board />}
                     exact
                   />
                   <Route
-                    path="/archive"
+                    path="/lucille/archive"
                     element={(
                       <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
                         <Textarea placeholder="Text" />
@@ -63,7 +63,7 @@ function App() {
                   />
 
                   <Route
-                    path="/guide"
+                    path="/lucille/guide"
                     element={(
                       <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
                         <Textarea placeholder="Text" />
@@ -72,7 +72,7 @@ function App() {
                   />
 
                   <Route
-                    path="/contact"
+                    path="/lucille/contact"
                     element={(
                       <TabPanel border="1px" borderColor="rgba(0, 0, 0, 0.08)">
                         <Textarea placeholder="Text" />
@@ -81,7 +81,7 @@ function App() {
                   />
 
                   <Route
-                    path="/settings"
+                    path="/lucille/settings"
                     element={(
                       /* Setup page */
                       <TabPanel position="absolute" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px" bg="white" h="550px" w="490px">
