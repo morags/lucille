@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import {
   Center,
   ChakraProvider,
@@ -49,7 +49,7 @@ function App() {
               <TabPanels>
                 <Routes>
                   <Route
-                    path="/lucille"
+                    path="/"
                     element={<Board />}
                     exact
                   />
