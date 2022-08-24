@@ -1,33 +1,46 @@
+/* eslint no-unused-vars: "error" */
 {
     "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
+      "browser": true,
+      "es2021": true,
+      "jest": true,
+      // Additional
+      "node": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended",
-        "plugin:jsx-a11y/recommended",
-        "plugin:import/recommended",
-        "airbnb",
-        "airbnb/hooks"
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended",
+      "plugin:import/recommended",
+      "airbnb",
+      "airbnb/hooks",
+      // additional
+      "eslint:recommended",
+      "plugin:import/errors",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "prettier"
     ],
-    "parser": "@typescript-eslint/parser",
+    //   "parser": "babel-eslint",
+    // "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
-    "rules": {},
+    "plugins": ["react", "import", "jsx-a11y", "react-hooks"],
+    //   "plugins": ["react", "@typescript-eslint"],
+    "rules": {
+      // Additional (there is no rules in the app)
+      "react/props-types": 0,
+      "react/react-in-jsx-scope": 0
+    },
     "settings": {
-        "react": {
-            "version": "detect"
-        }
+      "react": {
+        "version": "detect"
+      }
     }
-}
+  }
+  
