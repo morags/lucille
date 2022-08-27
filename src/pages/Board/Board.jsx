@@ -37,6 +37,7 @@ function Board({ mdFont, fontBright, smFont }) {
     } else {
       setUsers(usersData);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

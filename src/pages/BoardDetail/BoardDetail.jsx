@@ -39,6 +39,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
     } else {
       setUsers(usersData);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const bind = useLongPress(() => {
