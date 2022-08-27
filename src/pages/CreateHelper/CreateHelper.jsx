@@ -63,7 +63,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
       <FormControl>
         <Input
           type='text'
-          placeholder='Enter your name'
+          placeholder='Enter the helper name'
           border='1px'
           borderColor='gray.400'
           style={{ fontSize: `${smFont}px` }}
@@ -74,7 +74,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
         />
         <Input
           type='email'
-          placeholder='Enter your name'
+          placeholder='Enter the helper email'
           border='1px'
           borderColor='gray.400'
           mb='20px'
@@ -90,7 +90,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
           style={{ fontSize: `${smFont}px` }}
           onClick={handleSubmitUser}
         >
-          Submit
+          Add new helper
         </Button>
       </FormControl>
     </Box>

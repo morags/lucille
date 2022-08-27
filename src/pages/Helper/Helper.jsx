@@ -4,7 +4,7 @@ import { Box, Image, Heading, Text, Grid, GridItem } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import fetchUsers from '../../utils/fetchUsers';
-import { ListIcon, UserImage } from '../../assets';
+import { NewUser, UserImage } from '../../assets';
 
 function Helper({ mdFont, smFont, fontBright }) {
   const [users, setUsers] = useState(null);
@@ -85,7 +85,7 @@ function Helper({ mdFont, smFont, fontBright }) {
         bottom='-70px'
       >
         <Link to='create'>
-          <Image src={ListIcon} />
+          <Image src={NewUser} />
         </Link>
       </Box>
     </Box>

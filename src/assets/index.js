@@ -14,3 +14,4 @@ export { default as TaskIcon } from './images/task_btn.png';
 export { default as StrikeIcon } from './images/strike_btn.png';
 export { default as EditIcon } from './images/edit.png';
 export { default as UserImage } from './images/user-1.png';
+export { default as NewUser } from './images/add_user.png';
