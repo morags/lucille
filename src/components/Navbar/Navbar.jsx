@@ -1,49 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Box, Image } from '@chakra-ui/react';
-// import BoardIcon from '../../assets/images/board_nav_btn.png';
-import {
-  BoardIcon,
-  ArchiveIcon,
-  SetupIcon,
-  GuideIcon,
-  HelperIcon,
-} from '../../assets';
-
-const navData = [
-  {
-    title: 'Board',
-    to: '/',
-    // icon: '../../assets/images/board_nav_btn.png',
-    icon: BoardIcon,
-  },
-  {
-    title: 'Archive',
-    to: '/archive',
-    icon: ArchiveIcon,
-  },
-  {
-    title: 'Guide',
-    to: '/guide',
-    icon: GuideIcon,
-  },
-  {
-    title: 'Helper',
-    to: '/helper',
-    icon: HelperIcon,
-  },
-  {
-    title: 'Setup',
-    to: '/setup',
-    icon: SetupIcon,
-  },
-];
+import navData from './navData';
 
 function Navbar() {
   return (
     <header>
       <nav>
-        <Box display='flex'>
+        <Box display='flex' justifyContent='space-between' p='0 20px'>
           {navData.map((navItem) => (
             <NavLink
               to={navItem.to}

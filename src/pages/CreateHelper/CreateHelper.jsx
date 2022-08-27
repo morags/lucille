@@ -1,50 +1,63 @@
 /* eslint-disable consistent-return */
-
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Box, Button, Input, Heading, FormControl } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
-function CreateHelper() {
+function CreateHelper({ mdFont, smFont, fontBright }) {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userImage, setUserImage] = useState('');
 
+  const onLoad = (img) => {
+    setUserImage(img);
+  };
+
+  const imageToBase64 = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      onLoad(reader.result);
+    };
+  };
+
+  const onImageChange = (e) => {
+    const file = e.target.files[0];
+    imageToBase64(file);
+  };
+
   const handleSubmitUser = () => {
     if (!username || !userEmail || !userImage)
       return (
-        <Heading as='h3' fontSize='md'>
+        <Heading as='h3' style={{ fontSize: `${mdFont}px` }}>
           Please fill the form
         </Heading>
       );
 
     const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-    if (userImage) {
-      const reader = new FileReader();
-      reader.onloadend = () => localStorage.setItem('userImage', reader.result);
-      reader.readAsDataURL(userImage);
-    }
-
-    const img = localStorage.getItem('userImage');
-
     const user = {
       id: uuidv4(),
       name: username,
       email: userEmail,
-      image: img,
+      image: userImage,
     };
 
     users.push(user);
     localStorage.setItem('users', JSON.stringify(users));
-
     navigate('/helper');
   };
 
   return (
-    <Box border='2px' p='20px' borderColor='gray.600'>
-      <Heading as='h2' fontSize='2xl' mb='20px' color='gray.800'>
+    <Box border='2px' p='20px' borderColor='gray.500' h='full'>
+      <Heading
+        as='h2'
+        style={{ fontSize: `${mdFont}px`, filter: `contrast(${fontBright}%)` }}
+        mb='20px'
+        color='gray.800'
+      >
         Create Helper
       </Heading>
       <FormControl>
@@ -53,6 +66,8 @@ function CreateHelper() {
           placeholder='Enter your name'
           border='1px'
           borderColor='gray.400'
+          style={{ fontSize: `${smFont}px` }}
+          p='20px 15px'
           mb='25px'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -62,20 +77,19 @@ function CreateHelper() {
           placeholder='Enter your name'
           border='1px'
           borderColor='gray.400'
-          mb='25px'
+          mb='20px'
+          p='20px 15px'
+          style={{ fontSize: `${smFont}px` }}
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
         />
-        <input
-          type='file'
-          //   placeholder='Enter your name'
-          //   border='1px'
-          //   borderColor='gray.400'
-          //   mb='25px'
-          value=''
-          onChange={(e) => setUserImage(e.target.files[0])}
-        />
-        <Button colorScheme='teal' size='md' onClick={handleSubmitUser}>
+        <Input type='file' p='0' mb='10px' value='' onChange={onImageChange} />
+        <Button
+          colorScheme='teal'
+          size='md'
+          style={{ fontSize: `${smFont}px` }}
+          onClick={handleSubmitUser}
+        >
           Submit
         </Button>
       </FormControl>

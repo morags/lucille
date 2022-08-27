@@ -1,4 +1,7 @@
-import React from 'react';
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import { Box, Container } from '@chakra-ui/react';
 import { Routes, Route } from 'react-router-dom';
 import { Navbar } from './components';
@@ -14,11 +17,37 @@ import {
 import CreateList from './components/CreateList/CreateList';
 
 function App() {
+  const [mdFont, setMdFont] = useState(30);
+  const [smFont, setSmFont] = useState(20);
+  const [fontBright, setFontBright] = useState(100);
+
+  const increaseFont = () => {
+    setMdFont(mdFont + 2);
+    setSmFont(smFont + 2);
+  };
+
+  const decreaseFont = () => {
+    setMdFont(mdFont - 2);
+    setSmFont(smFont - 2);
+  };
+
+  const increaseBright = () => {
+    setFontBright(fontBright + 20);
+  };
+
+  const decreaseBright = () => {
+    if (fontBright <= 0) {
+      setFontBright(0);
+    } else {
+      setFontBright(fontBright - 20);
+    }
+  };
+
   return (
     <main className='app'>
       <Container
         pt={10}
-        pb={35}
+        pb={50}
         border='2px'
         borderColor='gray.500'
         w='100%'
@@ -33,19 +62,76 @@ function App() {
         pr={0}
         maxWidth='720px'
       >
-        <Box h='100%' bg='#e8e8e6' pb='40px' pr={5} pl={5} width='100%'>
+        <Box h='100%' bg='#e8e8e6' width='100%'>
           <Box h='100%' mt='-5px'>
             <Navbar />
-            <Box p={5} h='85%' style={{ overflow: 'auto' }}>
+            <Box m='20px' h='80%'>
               <Routes>
-                <Route path='/' element={<Board />} />
-                <Route path='/board/:name' element={<BoardDetail />} />
-                <Route path='/board/create' element={<CreateList />} />
-                <Route path='/archive' element={<Archive />} />
-                <Route path='/guide' element={<Guide />} />
-                <Route path='/helper' element={<Helper />} />
-                <Route path='/helper/create' element={<CreateHelper />} />
-                <Route path='/setup' element={<Setup />} />
+                <Route
+                  path='/'
+                  element={
+                    <Board
+                      mdFont={mdFont}
+                      smFont={smFont}
+                      fontBright={fontBright}
+                    />
+                  }
+                />
+                <Route
+                  path='/board/:boardId'
+                  element={
+                    <BoardDetail
+                      mdFont={mdFont}
+                      smFont={smFont}
+                      fontBright={fontBright}
+                    />
+                  }
+                />
+                <Route
+                  path='/board/create'
+                  element={<CreateList mdFont={mdFont} />}
+                />
+                <Route
+                  path='/archive'
+                  element={<Archive mdFont={mdFont} fontBright={fontBright} />}
+                />
+                <Route
+                  path='/guide'
+                  element={<Guide smFont={smFont} fontBright={fontBright} />}
+                />
+                <Route
+                  path='/helper'
+                  element={
+                    <Helper
+                      mdFont={mdFont}
+                      smFont={smFont}
+                      fontBright={fontBright}
+                    />
+                  }
+                />
+                <Route
+                  path='/helper/create'
+                  element={
+                    <CreateHelper
+                      mdFont={mdFont}
+                      smFont={smFont}
+                      fontBright={fontBright}
+                    />
+                  }
+                />
+                <Route
+                  path='/setup'
+                  element={
+                    <Setup
+                      mdFont={mdFont}
+                      increaseFont={increaseFont}
+                      decreaseFont={decreaseFont}
+                      fontBright={fontBright}
+                      decreaseBright={decreaseBright}
+                      increaseBright={increaseBright}
+                    />
+                  }
+                />
               </Routes>
             </Box>
           </Box>

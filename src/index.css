@@ -104,3 +104,14 @@ footerBar {
   margin: none;
   /* background-color:#ededeb ;   */
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #cfcfcf;
+}
+::-webkit-scrollbar-thumb {
+  background: #a5a5a5;
+}
