@@ -25,10 +25,10 @@ function CreateList({ mdFont }) {
   return (
     <Box p='30px 20px'>
       <Heading textAlign='left' mb='20px' style={{ fontSize: `${mdFont}px` }}>
-        Add new board
+        Create a new list (Add new board)
       </Heading>
       <Textarea
-        placeholder='Enter your board name'
+        placeholder='Enter your new list name(board name)'
         border='1px'
         borderColor='#444444'
         value={boardName}
@@ -43,7 +43,7 @@ function CreateList({ mdFont }) {
         colorScheme='teal'
         size='lg'
       >
-        Add Board
+        Add List on Board (Add Board)
       </Button>
     </Box>
   );

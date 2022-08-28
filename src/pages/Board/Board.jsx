@@ -27,7 +27,7 @@ function Board({ mdFont, fontBright, smFont }) {
   const startBoardList = [
     {
       id: uuidv4(),
-      name: 'Add New Boards',
+      name: 'Click LIST first(Add New Boards)',  
     },
   ];
 

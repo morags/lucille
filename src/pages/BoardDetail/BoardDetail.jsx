@@ -182,7 +182,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
               filter: `contrast(${fontBright}%)`,
             }}
           >
-            Add tasks to {selectedBoard.name}
+            Add a task (tasks) to {selectedBoard.name}
           </Heading>
           <Textarea
             mt='10px'
