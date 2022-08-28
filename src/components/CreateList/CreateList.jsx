@@ -2,25 +2,21 @@
 import React, { useState } from 'react';
 import { Box, Button, Heading, Textarea } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import { db } from '../../utils/db';
 
 function CreateList({ mdFont }) {
   const navigate = useNavigate();
   const [boardName, setBoardName] = useState('');
 
-  const handleSaveList = () => {
-    const boards = JSON.parse(localStorage.getItem('boards') || '[]');
-
-    const board = {
-      id: uuidv4(),
+  const addBoard = async () => {
+    await db.boards.add({
       name: boardName,
-      data: [],
-    };
-
-    boards.push(board);
-    localStorage.setItem('boards', JSON.stringify(boards));
+      archived: "false",
+      deleted: "false",
+      taskscount: 0
+    })
     navigate('/');
-  };
+  }
 
   return (
     <Box p='30px 20px'>
@@ -39,7 +35,7 @@ function CreateList({ mdFont }) {
       <Button
         mt='20px'
         w='200px'
-        onClick={handleSaveList}
+        onClick={addBoard}
         colorScheme='teal'
         size='lg'
       >
