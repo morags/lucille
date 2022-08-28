@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { Box, Grid, GridItem, Heading, Image } from '@chakra-ui/react';
+import { Box, Grid, GridItem, Heading, Image, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useLongPress } from 'use-long-press';
 import fetchBoards from '../../utils/fetchBoards';
+
 import {
   CancelIcon,
   DeleteIcon,
@@ -27,7 +28,7 @@ function Board({ mdFont, fontBright, smFont }) {
   const startBoardList = [
     {
       id: uuidv4(),
-      name: 'Click LIST first(Add New Boards)',  
+      name: '付箋紙の追加(Click LIST)',  
     },
   ];
 
@@ -90,7 +91,7 @@ function Board({ mdFont, fontBright, smFont }) {
     <Box position='relative' height='100%' p='20px' backgroundColor='#cedcbf'>
       <Grid
         p='0 20px'
-        templateColumns='repeat(3, 1fr)'
+        templateColumns='repeat(1, 1fr)'
         gap={5}
         overflowY='auto'
         height='inherit'
@@ -129,9 +130,15 @@ function Board({ mdFont, fontBright, smFont }) {
               </GridItem>
             ))
           : startBoardList.map((data) => (
+            <Box key={data.id} >
+              <Text textAlign='center' mb='20px' style={{ fontSize: `${mdFont}px` }}>
+                ルシーレへようこそ！簡単に使える「やること」管理アプリです。このアプリは貴方の日々の業務を、まるで付箋紙を掲示板にはって管理するかのように使えます。まずは新しい付箋紙 LISTを作成し、「やること」をその紙に後で追加してみましょう。よくある質問はGUIDEボタンを、知り合いにサポートを訪ねたい場合は CONTACTSを押してみましょう。まずは「週末の予定」という付箋紙を作成し、ショッピングモールにいくという「やること」を追加してみましょう。
+                Welcome Lucille!! It is an easy-to-use TODO management app for you. The app helps to check your daily tasks as if you could put sticky notes on Bulletin Board. Try to put a new LIST on your BOARD first and write your todo on it later. If you have any questions, press GUIDE to check FAQ. CONTACTS can ask for help by emails. Please make a list named WEEKEND SCHEDULE and add a task named GO SHOPPING MALL.
+              </Text>
+
               <GridItem
                 w='100%'
-                key={data.id}
+
                 bgImage={NotebookBG}
                 bgRepeat='no-repeat'
                 bgPosition='top'
@@ -141,10 +148,13 @@ function Board({ mdFont, fontBright, smFont }) {
                 display='flex'
                 alignItems='center'
                 justifyContent='center'
-                p='10px'
+                p='8px'
               >
-                <Heading textAlign='center'>{data.name}</Heading>
+
+
+              <Heading textAlign='center'>{data.name}</Heading>
               </GridItem>
+            </Box>  
             ))}
 
         {buttonPopup && (

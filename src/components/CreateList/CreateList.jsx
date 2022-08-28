@@ -25,10 +25,10 @@ function CreateList({ mdFont }) {
   return (
     <Box p='30px 20px'>
       <Heading textAlign='left' mb='20px' style={{ fontSize: `${mdFont}px` }}>
-        Create a new list (Add new board)
+        新規付箋紙の追加(Create a new list)
       </Heading>
       <Textarea
-        placeholder='Enter your new list name(board name)'
+        placeholder='付箋紙名を入力(Enter your new list name)'
         border='1px'
         borderColor='#444444'
         value={boardName}
@@ -38,12 +38,12 @@ function CreateList({ mdFont }) {
       />
       <Button
         mt='20px'
-        w='200px'
+        w='300px'
         onClick={handleSaveList}
         colorScheme='teal'
         size='lg'
       >
-        Add List on Board (Add Board)
+        付箋紙の追加(Add it on Board)
       </Button>
     </Box>
   );

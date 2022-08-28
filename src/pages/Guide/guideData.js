@@ -3,10 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 const guideData = [
   {
     id: uuidv4(),
-    title: 'I cannot read the text.',
-    guide: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-      ad minim veniam`,
+    title: '文字が小さいです。Too small to read letters',
+    guide: `設定 SETTINGS ボタンを選択し、フォントサイズを変更することが可能です。右側のAa ボタンを押せば文字が大きくなります。左側のボタンはその逆です。You can adjust your font size. Go Settings and press circle buttons.`,
   },
   {
     id: uuidv4(),

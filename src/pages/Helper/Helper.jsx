@@ -10,8 +10,8 @@ function Helper({ mdFont, smFont, fontBright }) {
   const [users, setUsers] = useState(null);
   const startUser = [
     {
-      name: 'Add new',
-      email: 'Add new users',
+      name: '名前未登録(Add new)',
+      email: '連絡先未登録(Add new users)',
       id: uuidv4(),
       image: UserImage,
     },

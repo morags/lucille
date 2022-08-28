@@ -58,12 +58,12 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
         mb='20px'
         color='gray.800'
       >
-        Create Helper
+        連絡先の登録(Create Helper)
       </Heading>
       <FormControl>
         <Input
           type='text'
-          placeholder='Enter the helper name'
+          placeholder='連絡先の名前入力(Enter the helper name)'
           border='1px'
           borderColor='gray.400'
           style={{ fontSize: `${smFont}px` }}
@@ -74,7 +74,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
         />
         <Input
           type='email'
-          placeholder='Enter the helper email'
+          placeholder='連絡先のemailアドレス入力(Enter the helper email)'
           border='1px'
           borderColor='gray.400'
           mb='20px'
@@ -90,7 +90,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
           style={{ fontSize: `${smFont}px` }}
           onClick={handleSubmitUser}
         >
-          Add new helper
+          連絡先の追加(Add new helper)
         </Button>
       </FormControl>
     </Box>

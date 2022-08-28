@@ -59,7 +59,7 @@ function Archive({ mdFont, fontBright }) {
           </Box>
         ))
       ) : (
-        <Heading>No Archives found</Heading>
+        <Heading >何も付箋紙が保管されていません。まずボード Board を選択し、保管したい付箋紙を長押しします。保管ボタン ARCHIVEを押すと、こちらに保管されます。No Archives found. Press one of your list icons in  Board for a while. Your LIST can be archived when needed.</Heading>
       )}
     </Box>
   );

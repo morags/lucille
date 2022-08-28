@@ -52,7 +52,7 @@ function Setup({
             filter={`contrast(${fontBright}%)`}
             mb='15px'
           >
-            Font Size:
+            文字の大きさ(Font Size):
           </Heading>
           <Box
             display='flex'
@@ -72,7 +72,7 @@ function Setup({
               }}
               fontWeight='medium'
             >
-              I can read this well
+              よく読めます。(I can read this well)
             </Text>
             <Image
               src={FontUp}
@@ -93,7 +93,7 @@ function Setup({
               filter: `contrast(${fontBright}%)`,
             }}
           >
-            Brightness:
+            文字の濃淡(Brightness):
           </Heading>
           <Box
             display='flex'
@@ -113,7 +113,7 @@ function Setup({
               }}
               fontWeight='medium'
             >
-              I can read this well
+              よく読めます。(I can read this well)
             </Text>
             <Image
               src={BrightUp}
@@ -134,7 +134,7 @@ function Setup({
               filter: `contrast(${fontBright}%)`,
             }}
           >
-            Volume:
+            音量,未実装 (Volume: Not implemented yet)
           </Heading>
           <Box
             display='flex'

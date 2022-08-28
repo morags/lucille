@@ -7,6 +7,7 @@ import { Box, Heading, Image, Textarea, Button } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
 import { useLongPress } from 'use-long-press';
+
 import {
   PlainPaper,
   TaskIcon,
@@ -182,7 +183,12 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
               filter: `contrast(${fontBright}%)`,
             }}
           >
+
+            {selectedBoard.name} に「やること」を追加して下さい。 
+             {"\n"}
             Add a task (tasks) to {selectedBoard.name}
+
+
           </Heading>
           <Textarea
             mt='10px'
@@ -201,24 +207,24 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
           />
           <Button
             colorScheme='teal'
-            w='100px'
+            w='200px'
             mr='20px'
             style={{
               fontSize: `${smFont}px`,
             }}
             onClick={addTask}
           >
-            {changeText ? 'Save' : 'Update'}
+            {changeText ? '保存(Save)' : '更新(Update)'}
           </Button>
           <Button
             style={{
               fontSize: `${smFont}px`,
             }}
             colorScheme='red'
-            w='100px'
+            w='200px'
             onClick={() => setIsPopupOpen(!isPopupOpen)}
           >
-            Close
+            キャンセル(Close)
           </Button>
         </Box>
       )}
