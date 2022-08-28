@@ -2,11 +2,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable array-callback-return */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, Heading, Image, Textarea, Button } from '@chakra-ui/react';
-import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
 import { useLongPress } from 'use-long-press';
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from '../../utils/db';
 import {
   PlainPaper,
   TaskIcon,
@@ -24,52 +25,46 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [sharePopup, setSharePopup] = useState(false);
-  const [users, setUsers] = useState([]);
 
   const { boardId } = useParams();
 
-  const getBoards = JSON.parse(localStorage.getItem('boards'));
-  const selectedBoard = getBoards.find((board) => board.id === boardId);
-  const boardData = selectedBoard.data;
-  const usersData = JSON.parse(localStorage.getItem('users'));
+  const getTasks = useLiveQuery(
+    () => db.tasks.where({boardid: boardId, completed: "false"}).toArray()
+  );
 
-  useEffect(() => {
-    if (users === null) {
-      setUsers([]);
-    } else {
-      setUsers(usersData);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const currentBoardTasksCount = useLiveQuery(
+    () => db.boards
+    .get(parseInt(boardId, 10))
+  )
+
+  const boardData = getTasks;
+
+  const allHelpers = useLiveQuery(
+    () => db.helpers.toArray()
+  );
 
   const bind = useLongPress(() => {
     setButtonPopup(true);
   });
 
-  const addTask = () => {
+  const addTask = async () => {
     if (taskInput && !changeText) {
-      selectedBoard.data.find((task) => {
+      boardData.find((task) => {
         if (task.id === selectedTask) {
-          task.name = taskInput;
+          task.task = taskInput;
+          db.tasks.update(task.id, {task: taskInput})
         }
       });
-      localStorage.setItem('boards', JSON.stringify(getBoards));
       setIsPopupOpen(false);
       setButtonPopup(false);
     } else {
-      const newTask = {
-        id: uuidv4(),
-        name: taskInput,
-      };
+      await db.tasks.add({
+        boardid: boardId,
+        task: taskInput,
+        completed: "false"
+      })
 
-      getBoards.forEach((board) => {
-        if (board.id === boardId) {
-          board.data.push(newTask);
-        }
-      });
-
-      localStorage.setItem('boards', JSON.stringify(getBoards));
-
+      await db.boards.update(parseInt(boardId, 10), {taskscount: currentBoardTasksCount.taskscount + 1})
       setTaskInput('');
       setIsPopupOpen(!isPopupOpen);
     }
@@ -77,13 +72,9 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
 
   const [taskId, setTaskId] = useState('');
 
-  const deleteTask = (id) => {
-    getBoards.forEach((board) => {
-      if (board.id === boardId) {
-        board.data = board.data.filter((task) => task.id !== id);
-      }
-    });
-    localStorage.setItem('boards', JSON.stringify(getBoards));
+  const completeTask = async (id) => {
+    db.tasks.update(id, {completed: "true"})
+    await db.boards.update(parseInt(boardId, 10), {taskscount: currentBoardTasksCount.taskscount - 1})
     setButtonPopup(false);
   };
 
@@ -91,7 +82,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
     const [updatedTask] = boardData.filter((taskItem) => taskItem.id === id);
 
     setChangeText(false);
-    setTaskInput(updatedTask.name);
+    setTaskInput(updatedTask.task);
     setSelectedTask(id);
     setIsPopupOpen(!isPopupOpen);
   };
@@ -116,13 +107,13 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
         mb='30px'
         style={{ fontSize: `${mdFont}px`, filter: `contrast(${fontBright}%)` }}
       >
-        {selectedBoard.name}
+        {boardData?.task}
       </Heading>
 
       {boardData &&
-        boardData.map((taskData, index) => (
+        boardData.map((task, index) => (
           <Box
-            key={taskData.id}
+            key={task.id}
             display='flex'
             alignItems='center'
             pl='20px'
@@ -149,14 +140,14 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                 filter: `contrast(${fontBright}%)`,
               }}
             >
-              {taskData.name}
+              {task.task}
             </Heading>
             <Image
               w='80px'
               ml='20px'
               {...bind()}
               src={StrikeIcon}
-              onMouseEnter={() => setTaskId(taskData.id)}
+              onMouseEnter={() => setTaskId(task.id)}
               style={{ cursor: 'pointer' }}
             />
           </Box>
@@ -182,7 +173,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
               filter: `contrast(${fontBright}%)`,
             }}
           >
-            Add tasks to {selectedBoard.name}
+            Add new task
           </Heading>
           <Textarea
             mt='10px'
@@ -244,7 +235,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
               w='120px'
               m='0px 20px'
               cursor='pointer'
-              onClick={() => deleteTask(taskId)}
+              onClick={() => completeTask(taskId)}
             />
             <Image
               src={EditIcon}
@@ -264,9 +255,9 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
               />
               <Box position='absolute' display='flex'>
                 {sharePopup &&
-                  users.map((user) => (
+                  allHelpers?.map((helper) => (
                     <Box
-                      key={user.id}
+                      key={helper.id}
                       backgroundColor='#ffffff'
                       w='80px'
                       h='80px'
@@ -283,7 +274,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                           filter: `contrast(${fontBright}%)`,
                         }}
                       >
-                        {user.name}
+                        {helper.name}
                       </Heading>
                     </Box>
                   ))}

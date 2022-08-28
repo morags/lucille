@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState } from 'react';
 import { Box, Grid, GridItem, Heading, Image } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import { useLongPress } from 'use-long-press';
-import fetchBoards from '../../utils/fetchBoards';
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from '../../utils/db';
 import {
   CancelIcon,
   DeleteIcon,
@@ -16,35 +17,21 @@ import {
 } from '../../assets';
 
 function Board({ mdFont, fontBright, smFont }) {
-  const [boardList, setBoardList] = useState(null);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [selectedId, setSelectedId] = useState('');
   const [selectedName, setSelectedName] = useState('');
-  const [users, setUsers] = useState([]);
-  const usersData = JSON.parse(localStorage.getItem('users'));
   const [sharePopup, setSharePopup] = useState(false);
+  
+  const allHelpers = useLiveQuery(
+    () => db.helpers.toArray()
+  );
 
-  const startBoardList = [
-    {
-      id: uuidv4(),
-      name: 'Add New Boards',
-    },
-  ];
-
-  useEffect(() => {
-    if (users === null) {
-      setUsers([]);
-    } else {
-      setUsers(usersData);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const data = fetchBoards();
-    setBoardList(data);
-  }, []);
-
+  const boardList = useLiveQuery(
+    () => db.boards
+    .where({archived: "false", deleted: "false"})
+    .toArray()
+  );
+  
   const selectIdName = (boardId, boardName) => {
     setSelectedId(boardId);
     setSelectedName(boardName);
@@ -60,25 +47,12 @@ function Board({ mdFont, fontBright, smFont }) {
   });
 
   const deleteBoard = (id) => {
-    const removeBoard = boardList.filter((board) => board.id !== id);
-    setBoardList(removeBoard);
     setButtonPopup(false);
-    localStorage.setItem('boards', JSON.stringify(removeBoard));
+    db.boards.update(id, {deleted: "true"})
   };
 
-  const getArchives = JSON.parse(localStorage.getItem('archives') || '[]');
-
   const archiveBoard = (id) => {
-    boardList.map((board) => {
-      if (board.id === id) {
-        getArchives.push(board);
-      }
-      return board;
-    });
-    const removeBoard = boardList.filter((board) => board.id !== id);
-    setBoardList(removeBoard);
-    localStorage.setItem('boards', JSON.stringify(removeBoard));
-    localStorage.setItem('archives', JSON.stringify(getArchives));
+    db.boards.update(id, {archived: "true"})
     setButtonPopup(!buttonPopup);
   };
 
@@ -95,8 +69,7 @@ function Board({ mdFont, fontBright, smFont }) {
         overflowY='auto'
         height='inherit'
       >
-        {boardList
-          ? boardList.map((board) => (
+        {boardList?.map((board) => (
               <GridItem
                 w='100%'
                 key={board.id}
@@ -128,24 +101,7 @@ function Board({ mdFont, fontBright, smFont }) {
                 </Link>
               </GridItem>
             ))
-          : startBoardList.map((data) => (
-              <GridItem
-                w='100%'
-                key={data.id}
-                bgImage={NotebookBG}
-                bgRepeat='no-repeat'
-                bgPosition='top'
-                h='150px'
-                border='1px'
-                borderColor='#990000'
-                display='flex'
-                alignItems='center'
-                justifyContent='center'
-                p='10px'
-              >
-                <Heading textAlign='center'>{data.name}</Heading>
-              </GridItem>
-            ))}
+          }
 
         {buttonPopup && (
           <Box
@@ -198,9 +154,9 @@ function Board({ mdFont, fontBright, smFont }) {
                 />
                 <Box position='absolute' display='flex'>
                   {sharePopup &&
-                    users.map((user) => (
+                    allHelpers?.map((helper) => (
                       <Box
-                        key={user.id}
+                        key={helper.id}
                         backgroundColor='#ffffff'
                         w='80px'
                         h='80px'
@@ -212,7 +168,7 @@ function Board({ mdFont, fontBright, smFont }) {
                         justifyContent='center'
                       >
                         <Heading style={{ fontSize: `${smFont}px` }}>
-                          {user.name}
+                          {helper.name}
                         </Heading>
                       </Box>
                     ))}

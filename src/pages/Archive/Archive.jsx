@@ -1,9 +1,22 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Box, Heading, Text } from '@chakra-ui/react';
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from '../../utils/db';
 
 function Archive({ mdFont, fontBright }) {
-  const archives = JSON.parse(localStorage.getItem('archives'));
+  let archives = useLiveQuery(
+    () => db.boards
+    .where("archived")
+    .equals("true")
+    .toArray()
+  );
+
+  if (typeof archives !== 'undefined'){
+    if(archives.length === 0){
+      archives = undefined
+    }
+  }
 
   return (
     <Box p='20px' backgroundColor='#f1f1f1' h='full'>
@@ -12,13 +25,13 @@ function Archive({ mdFont, fontBright }) {
         style={{ fontSize: `${mdFont}px`, filter: `contrast(${fontBright}%)` }}
         textAlign='right'
       >
-        {archives
-          ? `Tasks
-         Remaining:`
-          : ''}
+        {archives? 
+          `Tasks Remaining:`
+          : 
+          ''}
       </Heading>
       {archives ? (
-        archives.map((archive, index) => (
+        archives.map((archive) => (
           <Box
             key={archive.id}
             display='flex'
@@ -30,7 +43,7 @@ function Archive({ mdFont, fontBright }) {
             rounded='2xl'
             boxShadow='md'
             mb='20px'
-            bgColor={archive.data.length <= 0 ? 'blue.200' : '#ffffff'}
+            bgColor={archive.taskscount <= 0 ? 'blue.200' : '#ffffff'}
           >
             <Heading
               as='h3'
@@ -41,9 +54,6 @@ function Archive({ mdFont, fontBright }) {
               }}
               color='blue.700'
             >
-              <Text mr='10px' style={{ fontSize: `${mdFont}px` }}>
-                {index + 1}.
-              </Text>
               {archive.name}
             </Heading>
             <Text
@@ -54,7 +64,7 @@ function Archive({ mdFont, fontBright }) {
               }}
               color='pink.500'
             >
-              {archive.data.length}
+              {archive.taskscount}
             </Text>
           </Box>
         ))

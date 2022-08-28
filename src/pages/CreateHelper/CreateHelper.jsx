@@ -2,8 +2,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Box, Button, Input, Heading, FormControl } from '@chakra-ui/react';
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../../utils/db';
 
 function CreateHelper({ mdFont, smFont, fontBright }) {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
     imageToBase64(file);
   };
 
-  const handleSubmitUser = () => {
+  const addHelper = async () => {
     if (!username || !userEmail || !userImage)
       return (
         <Heading as='h3' style={{ fontSize: `${mdFont}px` }}>
@@ -36,17 +36,11 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
         </Heading>
       );
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-
-    const user = {
-      id: uuidv4(),
+    await db.helpers.add({
       name: username,
       email: userEmail,
-      image: userImage,
-    };
-
-    users.push(user);
-    localStorage.setItem('users', JSON.stringify(users));
+      profilepicture: userImage
+    })
     navigate('/helper');
   };
 
@@ -88,7 +82,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
           colorScheme='teal'
           size='md'
           style={{ fontSize: `${smFont}px` }}
-          onClick={handleSubmitUser}
+          onClick={addHelper}
         >
           Add new helper
         </Button>

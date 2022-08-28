@@ -1,32 +1,21 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Box, Image, Heading, Text, Grid, GridItem } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import fetchUsers from '../../utils/fetchUsers';
-import { NewUser, UserImage } from '../../assets';
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from '../../utils/db';
+import { NewUser} from '../../assets';
 
 function Helper({ mdFont, smFont, fontBright }) {
-  const [users, setUsers] = useState(null);
-  const startUser = [
-    {
-      name: 'Add new',
-      email: 'Add new users',
-      id: uuidv4(),
-      image: UserImage,
-    },
-  ];
 
-  useEffect(() => {
-    const data = fetchUsers();
-    setUsers(data);
-  }, []);
+  const helpers = useLiveQuery(
+    () => db.helpers.toArray()
+  );
 
   return (
     <Box border='3px' h='100%' borderColor='gray.300' position='relative'>
       <Grid templateColumns='repeat(2, 1fr)' gap={10} p='20px' overflowY='auto'>
-        {users
-          ? users.map((user) => (
+        {helpers?.map((user) => (
               <GridItem
                 key={user.id}
                 bgColor='#ffffff'
@@ -39,7 +28,7 @@ function Helper({ mdFont, smFont, fontBright }) {
                 rounded='xl'
                 w='100%'
               >
-                <Image src={user.image} w='150px' h='150px' rounded='full' />
+                <Image src={user.profilepicture} w='150px' h='150px' rounded='full' />
                 <Heading
                   style={{
                     fontSize: `${mdFont}px`,
@@ -58,24 +47,7 @@ function Helper({ mdFont, smFont, fontBright }) {
                 </Text>
               </GridItem>
             ))
-          : startUser.map((userData) => (
-              <GridItem
-                key={userData.id}
-                bgColor='#ffffff'
-                textAlign='center'
-                display='flex'
-                flexDirection='column'
-                justifyContent='center'
-                alignItems='center'
-                p='20px'
-                rounded='xl'
-                w='100%'
-              >
-                <Image src={userData.image} w='150px' rounded='full' />
-                <Heading>{userData.name}</Heading>
-                <Text>{userData.email}</Text>
-              </GridItem>
-            ))}
+          }
       </Grid>
       <Box
         style={{ cursor: 'pointer' }}
