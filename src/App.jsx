@@ -46,15 +46,12 @@ function App() {
   return (
     <main className='app'>
       <Container
-        pt={10}
-        pb={50}
+        pb={8}
         border='2px'
         borderColor='gray.500'
         w='100%'
-        height='830px'
+        height='100vh'
         centerContent
-        mt={20}
-        mb={20}
         display='flex'
         alignItems='center'
         flexDirection='column'
@@ -65,7 +62,7 @@ function App() {
         <Box h='100%' bg='#e8e8e6' width='100%'>
           <Box h='100%' mt='-5px'>
             <Navbar />
-            <Box m='20px' h='80%'>
+            <Box mr='5px' ml='5px' h='90%'>
               <Routes>
                 <Route
                   path='/'
