@@ -280,6 +280,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                 {sharePopup &&
                   allHelpers?.map((helper) => (
                     <Box
+                      onClick={() => window.open('mailto:' + helper.email + '?subject=I need your help with this task&body=' + boardData.filter(task => task.id === taskId)[0].task)} // eslint-disable-line
                       key={helper.id}
                       backgroundColor="#ffffff"
                       w="80px"
