@@ -21,7 +21,7 @@ function CreateList({ mdFont }) {
   return (
     <Box p='30px 20px'>
       <Heading textAlign='left' mb='20px' style={{ fontSize: `${mdFont}px` }}>
-        Add new board
+        Add new list
       </Heading>
       <Textarea
         placeholder='Enter your board name'
