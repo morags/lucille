@@ -39,7 +39,7 @@ function CreateList({ mdFont }) {
         colorScheme='teal'
         size='lg'
       >
-        Add Board
+        Add List
       </Button>
     </Box>
   );
