@@ -22,6 +22,7 @@ import {
   CancelIcon,
   EditIcon,
   ShareIcon,
+  completedTaskCSS, // eslint-disable-line
 } from "../../assets";
 
 function BoardDetail({ mdFont, smFont, fontBright }) {
@@ -115,7 +116,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
       bgRepeat="no-repeat"
       h="full"
     >
-      <Box overflowY='scroll' p='20px 15px' height='inherit'>
+      <Box overflowY="scroll" p="20px 15px" height="inherit">
         <Heading
           textAlign="center"
           textDecoration="underline"
@@ -148,6 +149,9 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                 {index + 1}
               </Heading>
               <Heading
+                className={taskCompletedStatus(task.id)
+                  ? "completedTask"
+                  : ""}
                 border="4px"
                 p="10px"
                 w="100%"
@@ -156,9 +160,6 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                 style={{
                   fontSize: `${mdFont}px`,
                   filter: `contrast(${fontBright}%)`,
-                  textDecoration: taskCompletedStatus(task.id)
-                    ? "line-through"
-                    : ""                  
                 }}
               >
                 {task.task}
@@ -280,7 +281,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                 {sharePopup &&
                   allHelpers?.map((helper) => (
                     <Box
-                      onClick={() => window.open('mailto:' + helper.email + '?subject=I need your help with this task&body=' + boardData.filter(task => task.id === taskId)[0].task)} // eslint-disable-line
+                      onClick={() => window.open("mailto:" + helper.email + "?subject=I need your help with this task&body=" + boardData.filter((task) => task.id === taskId)[0].task)} // eslint-disable-line
                       key={helper.id}
                       backgroundColor="#ffffff"
                       w="80px"
