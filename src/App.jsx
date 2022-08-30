@@ -1,10 +1,13 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { Box, Container } from '@chakra-ui/react';
-import { Routes, Route } from 'react-router-dom';
-import { Navbar } from './components';
+import React, { useEffect, useState } from "react";
+import { Box, Container } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "./utils/db";
+import { Navbar } from "./components";
+
 import {
   Board,
   Archive,
@@ -13,59 +16,75 @@ import {
   Setup,
   BoardDetail,
   CreateHelper,
-} from './pages';
-import CreateList from './components/CreateList/CreateList';
+} from "./pages";
+import CreateList from "./components/CreateList/CreateList";
 
 function App() {
   const [mdFont, setMdFont] = useState(30);
   const [smFont, setSmFont] = useState(20);
   const [fontBright, setFontBright] = useState(100);
 
+  const allSettings = db.settings.toArray().then((setting) => {
+    setMdFont(setting[0].fontsize);
+    setSmFont(setting[0].fontsize - 10);
+    setFontBright(setting[0].brightness)
+  });
+
   const increaseFont = () => {
-    setMdFont(mdFont + 2);
-    setSmFont(smFont + 2);
+    const newMdFont = mdFont + 2;
+    setMdFont(newMdFont);
+
+    db.settings.update(1, { fontsize: newMdFont });
   };
 
   const decreaseFont = () => {
-    setMdFont(mdFont - 2);
-    setSmFont(smFont - 2);
+    const newMdFont = mdFont - 2;
+    setMdFont(newMdFont);
+
+    db.settings.update(1, { fontsize: newMdFont });
   };
 
   const increaseBright = () => {
-    setFontBright(fontBright + 20);
+    const newFontBright = fontBright + 20;
+    setFontBright(newFontBright);
+
+    db.settings.update(1, { brightness: newFontBright });
   };
 
   const decreaseBright = () => {
     if (fontBright <= 0) {
       setFontBright(0);
+      db.settings.update(1, { brightness: 0 });
     } else {
+      const newFontBright = fontBright - 20;
       setFontBright(fontBright - 20);
+      db.settings.update(1, { brightness: newFontBright });
     }
   };
 
   return (
-    <main className='app'>
+    <main className="app">
       <Container
         pb={8}
-        border='2px'
-        borderColor='gray.500'
-        w='100%'
-        height='100vh'
+        border="2px"
+        borderColor="gray.500"
+        w="100%"
+        height="100vh"
         centerContent
-        display='flex'
-        alignItems='center'
-        flexDirection='column'
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
         pl={0}
         pr={0}
-        maxWidth='720px'
+        maxWidth="720px"
       >
-        <Box h='100%' bg='#e8e8e6' width='100%'>
-          <Box h='100%' mt='-5px'>
+        <Box h="100%" bg="#e8e8e6" width="100%">
+          <Box h="100%" mt="-5px">
             <Navbar />
-            <Box mr='5px' ml='5px' h='90%'>
+            <Box mr="5px" ml="5px" h="90%">
               <Routes>
                 <Route
-                  path='/'
+                  path="/"
                   element={
                     <Board
                       mdFont={mdFont}
@@ -75,7 +94,7 @@ function App() {
                   }
                 />
                 <Route
-                  path='/board/:boardId'
+                  path="/board/:boardId"
                   element={
                     <BoardDetail
                       mdFont={mdFont}
@@ -85,19 +104,19 @@ function App() {
                   }
                 />
                 <Route
-                  path='/board/create'
+                  path="/board/create"
                   element={<CreateList mdFont={mdFont} />}
                 />
                 <Route
-                  path='/archive'
+                  path="/archive"
                   element={<Archive mdFont={mdFont} fontBright={fontBright} />}
                 />
                 <Route
-                  path='/guide'
+                  path="/guide"
                   element={<Guide smFont={smFont} fontBright={fontBright} />}
                 />
                 <Route
-                  path='/helper'
+                  path="/helper"
                   element={
                     <Helper
                       mdFont={mdFont}
@@ -107,7 +126,7 @@ function App() {
                   }
                 />
                 <Route
-                  path='/helper/create'
+                  path="/helper/create"
                   element={
                     <CreateHelper
                       mdFont={mdFont}
@@ -117,7 +136,7 @@ function App() {
                   }
                 />
                 <Route
-                  path='/setup'
+                  path="/setup"
                   element={
                     <Setup
                       mdFont={mdFont}
