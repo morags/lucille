@@ -57,7 +57,7 @@ function Helper({ mdFont, smFont, fontBright }) {
         w="70px"
         position="absolute"
         right="-0"
-        bottom="-70px"
+        bottom="10px"
       >
         <Link to="create">
           <Image src={NewUser} />

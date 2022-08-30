@@ -50,7 +50,7 @@ function App() {
         border='2px'
         borderColor='gray.500'
         w='100%'
-        height='100vh'
+        height='90vh'
         centerContent
         display='flex'
         alignItems='center'

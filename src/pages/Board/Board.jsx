@@ -192,7 +192,7 @@ function Board({ mdFont, fontBright, smFont }) {
         w='70px'
         position='absolute'
         right='10px'
-        bottom='-75px'
+        bottom='1px'
       >
         <Link to='board/create'>
           <Image src={ListIcon} />

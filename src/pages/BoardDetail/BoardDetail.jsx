@@ -321,7 +321,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
       <Box
         position="absolute"
         right="0px"
-        bottom="-70px"
+        bottom="1px"
         rounded="full"
         boxShadow="md"
         w="80px"
