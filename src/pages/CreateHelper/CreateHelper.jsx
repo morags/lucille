@@ -1,15 +1,16 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { Box, Button, Input, Heading, FormControl } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
-import { db } from '../../utils/db';
+import React, { useState } from "react";
+import { Box, Button, Input, Heading, FormControl } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { db } from "../../utils/db";
+import { UserImage } from "../../assets";
 
 function CreateHelper({ mdFont, smFont, fontBright }) {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [userImage, setUserImage] = useState('');
+  const [username, setUsername] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userImage, setUserImage] = useState("");
 
   const onLoad = (img) => {
     setUserImage(img);
@@ -18,6 +19,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
   const imageToBase64 = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
+    console.log(file.name);
     reader.onload = () => {
       onLoad(reader.result);
     };
@@ -29,58 +31,64 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
   };
 
   const addHelper = async () => {
-    if (!username || !userEmail || !userImage)
+    if (!username || !userEmail)
       return (
-        <Heading as='h3' style={{ fontSize: `${mdFont}px` }}>
+        <Heading as="h3" style={{ fontSize: `${mdFont}px` }}>
           Please fill the form
         </Heading>
       );
 
     await db.helpers.add({
       name: username,
-      email: userEmail,
-      profilepicture: userImage
-    })
-    navigate('/helper');
+      email: userEmail, // eslint-disable-next-line
+      profilepicture: userImage ? userImage : UserImage,
+    });
+    navigate("/helper");
   };
 
   return (
-    <Box border='2px' p='20px' borderColor='gray.500' h='full'>
+    <Box border="2px" p="20px" borderColor="gray.500" h="full">
       <Heading
-        as='h2'
+        as="h2"
         style={{ fontSize: `${mdFont}px`, filter: `contrast(${fontBright}%)` }}
-        mb='20px'
-        color='gray.800'
+        mb="20px"
+        color="gray.800"
       >
-        Create Helper
+        Add Helper
       </Heading>
       <FormControl>
         <Input
-          type='text'
-          placeholder='Enter the helper name'
-          border='1px'
-          borderColor='gray.400'
+          type="text"
+          placeholder="Enter the helper name"
+          border="1px"
+          borderColor="gray.400"
           style={{ fontSize: `${smFont}px` }}
-          p='20px 15px'
-          mb='25px'
+          p="20px 15px"
+          mb="25px"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <Input
-          type='email'
-          placeholder='Enter the helper email'
-          border='1px'
-          borderColor='gray.400'
-          mb='20px'
-          p='20px 15px'
+          type="email"
+          placeholder="Enter the helper email"
+          border="1px"
+          borderColor="gray.400"
+          mb="20px"
+          p="20px 15px"
           style={{ fontSize: `${smFont}px` }}
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
         />
-        <Input type='file' p='0' mb='10px' value='' onChange={onImageChange} />
+        <Input
+          type="file"
+          p="0"
+          mb="10px"
+          accept="image/png, image/jpeg"
+          onChange={onImageChange}
+        />
         <Button
-          colorScheme='teal'
-          size='md'
+          colorScheme="teal"
+          size="md"
           style={{ fontSize: `${smFont}px` }}
           onClick={addHelper}
         >
