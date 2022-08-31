@@ -19,7 +19,6 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
   const imageToBase64 = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log(file.name);
     reader.onload = () => {
       onLoad(reader.result);
     };
