@@ -18,9 +18,7 @@ import { db } from "../../utils/db";
 import {
   PlainPaper,
   TaskIcon,
-  StrikeIcon,
   CancelIcon,
-  EditIcon,
   ShareIcon,
   completedTaskCSS, // eslint-disable-line
 } from "../../assets";
@@ -160,7 +158,11 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                 style={{
                   fontSize: `${mdFont}px`,
                   filter: `contrast(${fontBright}%)`,
+                  cursor: "pointer"
                 }}
+                onClick={() => editTask(task.id)}
+                {...bind()}
+                onMouseEnter={() => setTaskId(task.id)}
               >
                 {task.task}
               </Heading>
@@ -173,14 +175,6 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
               >
                 Done
               </Checkbox>
-              <Image
-                w="80px"
-                ml="20px"
-                {...bind()}
-                src={StrikeIcon}
-                onMouseEnter={() => setTaskId(task.id)}
-                style={{ cursor: "pointer" }}
-              />
             </Box>
           ))}
       </Box>
@@ -255,20 +249,12 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
           display="flex"
           alignItems="start"
           justifyContent="center"
-          flexDirection="column"
+          flexDirection="row"
           p="20px"
           top="0"
           left="0"
         >
           <Box display="flex">
-            <Image
-              src={EditIcon}
-              w="120px"
-              m="0px 20px"
-              cursor="pointer"
-              onClick={() => editTask(taskId)}
-            />
-
             <Box position="relative">
               <Image
                 src={ShareIcon}
