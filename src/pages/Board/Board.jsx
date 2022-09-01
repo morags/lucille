@@ -2,8 +2,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-curly-brace-presence */
-import React, { useState } from "react";
-import { Box, Grid, GridItem, Heading, Image, Divider } from "@chakra-ui/react";
+import React, { useState, useRef } from "react";
+import {
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Divider,
+  Textarea,
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useLongPress } from "use-long-press";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -16,9 +24,7 @@ import {
   ListIcon,
   NotebookBG,
 } from "../../assets";
-import {
-  Archive,
-} from ".";
+import { Archive } from ".";
 
 function Board({ mdFont, fontBright, smFont }) {
   const [buttonPopup, setButtonPopup] = useState(false);
@@ -60,6 +66,25 @@ function Board({ mdFont, fontBright, smFont }) {
     setSharePopup(!sharePopup);
   };
 
+  const newListRef = useRef(null)
+
+  const executeScroll = () => newListRef.current.scrollIntoView()    
+
+  const addBoard = async () => {
+    await db.boards.add({
+      name: "",
+      archived: "false",
+      deleted: "false",
+      taskscount: 0,
+      new: "true",
+    });
+    executeScroll()
+  };
+
+  const changeBoardNewValue = async (board) => {
+    db.boards.update(board[0], { new: "false", name: board[1]});
+  };
+
   return (
     <Box position="relative" height="100%" p="15px" backgroundColor="#cedcbf">
       <Grid
@@ -69,8 +94,8 @@ function Board({ mdFont, fontBright, smFont }) {
         overflowY="auto"
         height="80%"
       >
-        {boardList?.map((board) => (
-          <Link to={`/board/${board.id}`} key={board.id} style={{height: "150px"}}>
+        {boardList?.map((board) =>
+          board.new === "true" ? (
             <GridItem
               w="100%"
               key={board.id}
@@ -84,23 +109,59 @@ function Board({ mdFont, fontBright, smFont }) {
               alignItems="center"
               justifyContent="center"
               p="10px"
-              {...bind()}
-              onMouseEnter={() => selectIdName(board.id, board.name)}
               style={{ cursor: "pointer" }}
               position="relative"
+              ref={newListRef}
             >
-              <Heading
-                textAlign="center"
-                style={{
-                  fontSize: `${mdFont}px`,
-                  filter: `contrast(${fontBright}%)`,
-                }}
-              >
-                {board.name}
-              </Heading>
+              <Textarea
+                key={board.id}
+                variant="filled"
+                resize="none"
+                onBlur={(e) => changeBoardNewValue([board.id, e.target.value])}
+                placeholder="Add List name"
+                border="2px"
+                borderColor="#DCD3D3"
+                style={{ fontSize: `${mdFont - 10}px`}}
+                fontWeight="bold"
+              />
             </GridItem>
-          </Link>
-        ))}
+          ) : (
+            <Link
+              to={`/board/${board.id}`}
+              key={board.id}
+              style={{ height: "150px" }}
+            >
+              <GridItem
+                w="100%"
+                key={board.id}
+                bgImage={NotebookBG}
+                bgRepeat="no-repeat"
+                bgPosition="top"
+                h="150px"
+                border="1px"
+                borderColor="#990000"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                p="10px"
+                {...bind()}
+                onMouseEnter={() => selectIdName(board.id, board.name)}
+                style={{ cursor: "pointer" }}
+                position="relative"
+              >
+                <Heading
+                  textAlign="center"
+                  style={{
+                    fontSize: `${mdFont}px`,
+                    filter: `contrast(${fontBright}%)`,
+                  }}
+                >
+                  {board.name}
+                </Heading>
+              </GridItem>
+            </Link>
+          )
+        )}
 
         {buttonPopup && (
           <Box
@@ -186,11 +247,9 @@ function Board({ mdFont, fontBright, smFont }) {
             />
           </Box>
         )}
-      
-
       </Grid>
-      <Divider  style={{border: "3px solid red", borderRadius: "5px"}}/>
-      <Box height="18%" >
+      <Divider style={{ border: "3px solid red", borderRadius: "5px" }} />
+      <Box height="18%">
         <Archive mdFont={mdFont} fontBright={fontBright} />
       </Box>
       <Box
@@ -199,10 +258,9 @@ function Board({ mdFont, fontBright, smFont }) {
         position="absolute"
         right="10px"
         bottom="1px"
+        onClick={addBoard}
       >
-        <Link to="board/create">
-          <Image src={ListIcon} />
-        </Link>
+        <Image src={ListIcon} />
       </Box>
     </Box>
   );
