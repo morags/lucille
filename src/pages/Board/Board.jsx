@@ -116,6 +116,7 @@ function Board({ mdFont, fontBright, smFont }) {
             flexDirection="column"
             left="0"
             top="0"
+            onClick={() => setButtonPopup(!buttonPopup)}
           >
             <Heading
               as="h2"

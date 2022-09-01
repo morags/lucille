@@ -122,6 +122,7 @@ function Archive({ mdFont, fontBright }) {
             flexDirection="column"
             left="0"
             top="0"
+            onClick={() => setButtonPopup(!buttonPopup)}
           >
             <Heading
               as="h2"

@@ -261,6 +261,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
           p="20px"
           top="0"
           left="0"
+          onClick={() => setButtonPopup(!buttonPopup)}
         >
           <Box display="flex">
             <Box position="relative">
