@@ -108,10 +108,6 @@ function App() {
                   element={<CreateList mdFont={mdFont} />}
                 />
                 <Route
-                  path="/archive"
-                  element={<Archive mdFont={mdFont} fontBright={fontBright} />}
-                />
-                <Route
                   path="/guide"
                   element={<Guide smFont={smFont} fontBright={fontBright} />}
                 />

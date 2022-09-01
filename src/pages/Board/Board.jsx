@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/jsx-curly-brace-presence */
 import React, { useState } from "react";
-import { Box, Grid, GridItem, Heading, Image } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading, Image, Divider } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useLongPress } from "use-long-press";
 import { useLiveQuery } from "dexie-react-hooks";
@@ -15,6 +16,9 @@ import {
   ListIcon,
   NotebookBG,
 } from "../../assets";
+import {
+  Archive,
+} from ".";
 
 function Board({ mdFont, fontBright, smFont }) {
   const [buttonPopup, setButtonPopup] = useState(false);
@@ -57,13 +61,13 @@ function Board({ mdFont, fontBright, smFont }) {
   };
 
   return (
-    <Box position="relative" height="100%" p="20px" backgroundColor="#cedcbf">
+    <Box position="relative" height="100%" p="15px" backgroundColor="#cedcbf">
       <Grid
         p="0 20px"
         templateColumns="repeat(3, 1fr)"
         gap={5}
         overflowY="auto"
-        height="inherit"
+        height="80%"
       >
         {boardList?.map((board) => (
           <Link to={`/board/${board.id}`} key={board.id} style={{height: "150px"}}>
@@ -181,7 +185,13 @@ function Board({ mdFont, fontBright, smFont }) {
             />
           </Box>
         )}
+      
+
       </Grid>
+      <Divider  style={{border: "3px solid red", borderRadius: "5px"}}/>
+      <Box height="18%" >
+        <Archive mdFont={mdFont} fontBright={fontBright} />
+      </Box>
       <Box
         style={{ cursor: "pointer" }}
         w="70px"

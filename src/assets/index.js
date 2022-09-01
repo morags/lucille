@@ -15,4 +15,5 @@ export { default as StrikeIcon } from "./images/strike_btn.png";
 export { default as EditIcon } from "./images/edit.png";
 export { default as UserImage } from "./images/defaultProfileImg.png";
 export { default as NewUser } from "./images/add_user.png";
+export { default as RestoreList } from "./images/curve-arrow.png";
 export { default as completedTaskCSS } from "./completedTaskAnimation.css";

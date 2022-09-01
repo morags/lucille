@@ -1,6 +1,5 @@
 import {
   BoardIcon,
-  ArchiveIcon,
   SetupIcon,
   GuideIcon,
   HelperIcon,
@@ -11,11 +10,6 @@ const navData = [
     title: 'Board',
     to: '/',
     icon: BoardIcon,
-  },
-  {
-    title: 'Archive',
-    to: '/archive',
-    icon: ArchiveIcon,
   },
   {
     title: 'Guide',
