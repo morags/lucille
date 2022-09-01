@@ -51,12 +51,12 @@ function Archive({ mdFont, fontBright }) {
       <Heading
         mb="15px"
         style={{
-          fontSize: `${mdFont - 10}px`,
+          fontSize: `${mdFont - 12}px`,
           filter: `contrast(${fontBright}%)`,
         }}
         textAlign="right"
       >
-        {archives ? `Tasks Remaining:` : ""}
+        {archives ? `The red digit is the number of remaining tasks` : ""}
       </Heading>
       <Grid
         p="0 20px"
