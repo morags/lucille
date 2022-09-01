@@ -40,8 +40,6 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
     db.boards.get(parseInt(boardId, 10))
   );
 
-  console.log(currentBoardTasksCount);
-
   const boardData = getTasks;
 
   const allHelpers = useLiveQuery(() => db.helpers.toArray());
