@@ -40,6 +40,8 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
     db.boards.get(parseInt(boardId, 10))
   );
 
+  console.log(currentBoardTasksCount);
+
   const boardData = getTasks;
 
   const allHelpers = useLiveQuery(() => db.helpers.toArray());
@@ -115,6 +117,12 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
       h="full"
     >
       <Box overflowY="scroll" p="20px 15px" height="inherit">
+      <Heading
+        style={{ fontSize: `${mdFont}px`, filter: `contrast(${fontBright}%)` }}
+        textAlign="center"
+      >
+        {currentBoardTasksCount?.name}
+      </Heading>
         <Heading
           textAlign="center"
           textDecoration="underline"
