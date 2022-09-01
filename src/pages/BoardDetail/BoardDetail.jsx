@@ -2,13 +2,12 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable array-callback-return */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Box,
   Heading,
   Image,
   Textarea,
-  Button,
   Checkbox,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
@@ -24,11 +23,8 @@ import {
 } from "../../assets";
 
 function BoardDetail({ mdFont, smFont, fontBright }) {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [taskInput, setTaskInput] = useState("");
-  const [changeText, setChangeText] = useState(true);
   const [buttonPopup, setButtonPopup] = useState(false);
-  const [selectedTask, setSelectedTask] = useState(null);
   const [sharePopup, setSharePopup] = useState(false);
   const { boardId } = useParams();
 
@@ -47,31 +43,6 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
   const bind = useLongPress(() => {
     setButtonPopup(true);
   });
-
-  const addTask = async () => {
-    if (taskInput && !changeText) {
-      boardData.find((task) => {
-        if (task.id === selectedTask) {
-          task.task = taskInput;
-          db.tasks.update(task.id, { task: taskInput });
-        }
-      });
-      setIsPopupOpen(false);
-      setButtonPopup(false);
-    } else {
-      await db.tasks.add({
-        boardid: boardId,
-        task: taskInput,
-        completed: "false",
-      });
-
-      await db.boards.update(parseInt(boardId, 10), {
-        taskscount: currentBoardTasksCount.taskscount + 1,
-      });
-      setTaskInput("");
-      setIsPopupOpen(!isPopupOpen);
-    }
-  };
 
   const [taskId, setTaskId] = useState("");
 
@@ -94,15 +65,29 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
 
   const editTask = (id) => {
     const [updatedTask] = boardData.filter((taskItem) => taskItem.id === id);
-
-    setChangeText(false);
+    db.tasks.update(id, { change: "true" });
     setTaskInput(updatedTask.task);
-    setSelectedTask(id);
-    setIsPopupOpen(!isPopupOpen);
   };
-
   const shareTask = () => {
     setSharePopup(!sharePopup);
+  };
+  const newTaskRef = useRef(null);
+  const executeScroll = () => newTaskRef.current.scrollIntoView();
+
+  const addTaskNew = async () => {
+    await db.tasks.add({
+      boardid: boardId,
+      task: "",
+      completed: "false",
+      new: "true",
+      change: "false"
+    });
+    executeScroll();
+  };
+
+  const changeTaskNewValue = async (task) => {
+    db.tasks.update(task[0], { new: "false", change: "false", task: task[1] });
+    setTaskInput("")
   };
 
   return (
@@ -115,12 +100,15 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
       h="full"
     >
       <Box overflowY="scroll" p="20px 15px" height="inherit">
-      <Heading
-        style={{ fontSize: `${mdFont}px`, filter: `contrast(${fontBright}%)` }}
-        textAlign="center"
-      >
-        {currentBoardTasksCount?.name}
-      </Heading>
+        <Heading
+          style={{
+            fontSize: `${mdFont + 5}px`,
+            filter: `contrast(${fontBright}%)`,
+          }}
+          textAlign="center"
+        >
+          {currentBoardTasksCount?.name}
+        </Heading>
         <Heading
           textAlign="center"
           textDecoration="underline"
@@ -134,116 +122,96 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
         </Heading>
 
         {boardData &&
-          boardData.map((task, index) => (
-            <Box
-              key={task.id}
-              display="flex"
-              alignItems="center"
-              pl="20px"
-              mb="20px"
-            >
-              <Heading
-                as="h4"
-                mr="20px"
-                style={{
-                  fontSize: `${mdFont}px`,
-                  filter: `contrast(${fontBright}%)`,
-                }}
+          boardData.map((task, index) =>
+            task.new === "true" || task.change === "true" ? (
+              <Box
+                key={task.id}
+                display="flex"
+                alignItems="center"
+                pl="20px"
+                mb="20px"
               >
-                {index + 1}
-              </Heading>
-              <Heading
-                className={taskCompletedStatus(task.id)
-                  ? "completedTask"
-                  : ""}
-                border="4px"
-                p="10px"
-                w="100%"
-                borderColor="gray.400"
-                rounded="lg"
-                style={{
-                  fontSize: `${mdFont}px`,
-                  filter: `contrast(${fontBright}%)`,
-                  cursor: "pointer"
-                }}
-                onClick={() => editTask(task.id)}
-                {...bind()}
-                onMouseEnter={() => setTaskId(task.id)}
+                <Heading
+                  as="h4"
+                  mr="20px"
+                  style={{
+                    fontSize: `${mdFont - 10}px`,
+                    filter: `contrast(${fontBright}%)`,
+                  }}
+                >
+                  {index + 1}
+                </Heading>
+                <Textarea
+                  key={task.id}
+                  ref={newTaskRef}
+                  defaultValue={taskInput}
+                  resize="none"
+                  onBlur={(e) => changeTaskNewValue([task.id, e.target.value])}
+                  placeholder="Add new task"
+                  border="4px"
+                  p="10px"
+                  w="100%"
+                  borderColor="gray.400"
+                  rounded="lg"
+                  style={{
+                    fontSize: `${mdFont}px`,
+                    filter: `contrast(${fontBright - 10}%)`,
+                    cursor: "pointer",
+                  }}
+                  fontWeight="bold"
+                />
+              </Box>
+            ) : (
+              <Box
+                key={task.id}
+                display="flex"
+                alignItems="center"
+                pl="20px"
+                mb="20px"
               >
-                {task.task}
-              </Heading>
-              <Checkbox
-                size="lg"
-                backgroundColor="#B6BAB6"
-                left="3"
-                onChange={() => completeTask(task.id)}
-                isChecked={taskCompletedStatus(task.id)}
-              >
-                Done
-              </Checkbox>
-            </Box>
-          ))}
+                <Heading
+                  as="h4"
+                  mr="20px"
+                  style={{
+                    fontSize: `${mdFont - 10}px`,
+                    filter: `contrast(${fontBright}%)`,
+                  }}
+                >
+                  {index + 1}
+                </Heading>
+                <Heading
+                  className={
+                    taskCompletedStatus(task.id) ? "completedTask" : ""
+                  }
+                  border="4px"
+                  p="10px"
+                  w="100%"
+                  borderColor="gray.400"
+                  rounded="lg"
+                  style={{
+                    fontSize: `${mdFont}px`,
+                    filter: `contrast(${fontBright}%)`,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => editTask(task.id)}
+                  {...bind()}
+                  onMouseEnter={() => setTaskId(task.id)}
+                >
+                  {task.task}
+                </Heading>
+                <Checkbox
+                  size="lg"
+                  backgroundColor="#B6BAB6"
+                  left="3"
+                  onChange={() => completeTask(task.id)}
+                  isChecked={taskCompletedStatus(task.id)}
+                >
+                  Done
+                </Checkbox>
+              </Box>
+            )
+          )}
       </Box>
-      {isPopupOpen && (
-        <Box
-          bgColor="#cccccc"
-          p="20px"
-          position="absolute"
-          left="0"
-          right="0"
-          top="0"
-          height="100%"
-          zIndex="2"
-          opacity="0.9"
-        >
-          <Heading
-            as="h3"
-            display="inline"
-            style={{
-              fontSize: `${mdFont}px`,
-              filter: `contrast(${fontBright}%)`,
-            }}
-          >
-            Add new task
-          </Heading>
-          <Textarea
-            mt="10px"
-            placeholder="Enter task"
-            border="1px"
-            borderColor="gray.500"
-            resize="none"
-            style={{
-              fontSize: `${smFont}px`,
-            }}
-            fontWeight="bold"
-            name="taskName"
-            mb="20px"
-            value={taskInput}
-            onChange={(e) => setTaskInput(e.target.value)}
-          />
-          <Button
-            colorScheme="teal"
-            w="100px"
-            mr="20px"
-            style={{
-              fontSize: `${smFont}px`,
-            }}
-            onClick={addTask}
-          >
-            {changeText ? "Save" : "Update"}
-          </Button>
-          <Button
-            style={{
-              fontSize: `${smFont}px`,
-            }}
-            colorScheme="red"
-            w="100px"
-            onClick={() => setIsPopupOpen(!isPopupOpen)}
-          >
-            Close
-          </Button>
-        </Box>
-      )}
 
       {buttonPopup && (
         <Box
@@ -274,7 +242,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                 {sharePopup &&
                   allHelpers?.map((helper) => (
                     <Box
-                      onClick={() => window.open("mailto:" + helper.email + "?subject=I need your help with this task&body=" + boardData.filter((task) => task.id === taskId)[0].task)} // eslint-disable-line
+                      onClick={() =>window.open("mailto:" +helper.email +"?subject=I need your help with this task&body=" +boardData.filter((task) => task.id === taskId)[0].task)} // eslint-disable-line
                       key={helper.id}
                       backgroundColor="#ffffff"
                       w="80px"
@@ -319,7 +287,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
         boxShadow="md"
         w="80px"
         style={{ cursor: "pointer" }}
-        onClick={() => setIsPopupOpen(!isPopupOpen)}
+        onClick={addTaskNew}
       >
         <Image src={TaskIcon} />
       </Box>
