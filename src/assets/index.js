@@ -11,8 +11,6 @@ export { default as ListIcon } from "./images/list_footer_btn.png";
 export { default as NotebookBG } from "./images/parchment.png";
 export { default as PlainPaper } from "./images/plain_paper.png";
 export { default as TaskIcon } from "./images/task_btn.png";
-export { default as StrikeIcon } from "./images/strike_btn.png";
-export { default as EditIcon } from "./images/edit.png";
 export { default as UserImage } from "./images/defaultProfileImg.png";
 export { default as NewUser } from "./images/add_user.png";
 export { default as RestoreList } from "./images/curve-arrow.png";
