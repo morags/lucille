@@ -50,10 +50,16 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
     const getTaskData = boardData.filter((taskItem) => taskItem.id === id);
     const currentTaskCompletedValue = JSON.parse(getTaskData[0].completed);
     const reverseValue = !currentTaskCompletedValue;
+    if(currentTaskCompletedValue === true){
+      await db.boards.update(parseInt(boardId, 10), {
+        taskscount: currentBoardTasksCount.taskscount + 1,
+      });
+    } else {
+      await db.boards.update(parseInt(boardId, 10), {
+        taskscount: currentBoardTasksCount.taskscount - 1,
+      });
+    }
     db.tasks.update(id, { completed: reverseValue.toString() });
-    await db.boards.update(parseInt(boardId, 10), {
-      taskscount: currentBoardTasksCount.taskscount - 1,
-    });
     setButtonPopup(false);
   };
 
@@ -82,6 +88,9 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
       completed: "false",
       new: "true",
       change: "false"
+    });
+    await db.boards.update(parseInt(boardId, 10), {
+      taskscount: currentBoardTasksCount.taskscount + 1,
     });
     executeScroll();
   };
