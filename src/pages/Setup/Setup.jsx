@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Heading,
@@ -29,8 +29,12 @@ function Setup({
   increaseBright,
   decreaseBright,
   fontBright,
-}) {
+  pathName
+}) {  
   const [sliderValue, setSliderValue] = useState(20);
+  useEffect(() => {
+    pathName(window.location.pathname);
+  })
 
   const increaseVol = () => {
     setSliderValue(sliderValue + 5);
@@ -41,7 +45,7 @@ function Setup({
   };
 
   return (
-    <Box position='relative' h='full'>
+    <Box position='relative' h='full' backgroundColor="#cedcbf" border='2px' borderColor='gray.500'>
       <Box p='20px' overflowY='auto' h='full'>
         <Box mb='15px' borderBottom='4px' borderColor='gray.400' pb='15px'>
           <Heading

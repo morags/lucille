@@ -23,11 +23,16 @@ function App() {
   const [mdFont, setMdFont] = useState(30);
   const [smFont, setSmFont] = useState(20);
   const [fontBright, setFontBright] = useState(100);
+  const [pathValue, setPathValue] = useState("");
+
+  const pullPathName = (pathName) => {
+    setPathValue(pathName);
+  };
 
   const allSettings = db.settings.toArray().then((setting) => {
     setMdFont(setting[0].fontsize);
     setSmFont(setting[0].fontsize - 10);
-    setFontBright(setting[0].brightness)
+    setFontBright(setting[0].brightness);
   });
 
   const increaseFont = () => {
@@ -66,10 +71,10 @@ function App() {
     <main className="app">
       <Container
         pb={8}
-        border='2px'
-        borderColor='gray.500'
-        w='100%'
-        height='90vh'
+        border="2px"
+        borderColor="gray.500"
+        w="100%"
+        height="90vh"
         centerContent
         display="flex"
         alignItems="center"
@@ -80,7 +85,7 @@ function App() {
       >
         <Box h="100%" bg="#e8e8e6" width="100%">
           <Box h="100%" mt="-5px">
-            <Navbar />
+            <Navbar path={pathValue} />
             <Box mr="5px" ml="5px" h="90%">
               <Routes>
                 <Route
@@ -90,6 +95,7 @@ function App() {
                       mdFont={mdFont}
                       smFont={smFont}
                       fontBright={fontBright}
+                      pathName={pullPathName}
                     />
                   }
                 />
@@ -109,7 +115,13 @@ function App() {
                 />
                 <Route
                   path="/guide"
-                  element={<Guide smFont={smFont} fontBright={fontBright} />}
+                  element={
+                    <Guide
+                      smFont={smFont}
+                      fontBright={fontBright}
+                      pathName={pullPathName}
+                    />
+                  }
                 />
                 <Route
                   path="/helper"
@@ -118,6 +130,7 @@ function App() {
                       mdFont={mdFont}
                       smFont={smFont}
                       fontBright={fontBright}
+                      pathName={pullPathName}
                     />
                   }
                 />
@@ -128,6 +141,7 @@ function App() {
                       mdFont={mdFont}
                       smFont={smFont}
                       fontBright={fontBright}
+                      pathName={pullPathName}
                     />
                   }
                 />
@@ -141,6 +155,7 @@ function App() {
                       fontBright={fontBright}
                       decreaseBright={decreaseBright}
                       increaseBright={increaseBright}
+                      pathName={pullPathName}
                     />
                   }
                 />

@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-curly-brace-presence */
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Grid,
@@ -26,7 +26,7 @@ import {
 } from "../../assets";
 import { Archive } from ".";
 
-function Board({ mdFont, fontBright, smFont }) {
+function Board({ mdFont, fontBright, smFont, pathName }) {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const [selectedName, setSelectedName] = useState("");
@@ -35,6 +35,10 @@ function Board({ mdFont, fontBright, smFont }) {
   const allHelpers = useLiveQuery(() => db.helpers.toArray());
   const allTasks = useLiveQuery(() => db.tasks.toArray());
 
+  useEffect(() => {
+    pathName(window.location.pathname);
+  })
+  
   const boardList = useLiveQuery(() =>
     db.boards.where({ archived: "false", deleted: "false" }).toArray()
   );
@@ -87,8 +91,10 @@ function Board({ mdFont, fontBright, smFont }) {
     db.boards.update(board[0], { new: "false", name: board[1]});
   };
 
+  
+
   return (
-    <Box position="relative" height="100%" p="15px" backgroundColor="#cedcbf">
+    <Box position="relative" height="100%" p="15px" backgroundColor="#cedcbf" border='2px' borderColor='gray.500'>
       <Grid
         p="0 20px"
         templateColumns="repeat(3, 1fr)"

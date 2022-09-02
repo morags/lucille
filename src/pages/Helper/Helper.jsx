@@ -1,16 +1,20 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, {useEffect} from "react";
 import { Box, Image, Heading, Text, Grid, GridItem } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../../utils/db";
 import { NewUser } from "../../assets";
 
-function Helper({ mdFont, smFont, fontBright }) {
+function Helper({ mdFont, smFont, fontBright, pathName }) {
+  useEffect(() => {
+    pathName(window.location.pathname);
+  })
+
   const helpers = useLiveQuery(() => db.helpers.toArray());
 
   return (
-    <Box border="3px" h="100%" borderColor="gray.300" position="relative">
+    <Box backgroundColor="#cedcbf" border='2px' borderColor='gray.500' h="100%" position="relative">
       <Box height="100%" overflowY="scroll">
         <Grid templateColumns="repeat(2, 1fr)" gap={10} p="20px" overflowY="auto">
           {helpers?.map((user) => (
