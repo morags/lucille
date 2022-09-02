@@ -124,17 +124,6 @@ function App() {
                   }
                 />
                 <Route
-                  path="/helper"
-                  element={
-                    <Helper
-                      mdFont={mdFont}
-                      smFont={smFont}
-                      fontBright={fontBright}
-                      pathName={pullPathName}
-                    />
-                  }
-                />
-                <Route
                   path="/helper/create"
                   element={
                     <CreateHelper
