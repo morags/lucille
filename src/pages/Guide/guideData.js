@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 const guideData = [
   {
     id: uuidv4(),
-    title: 'I want to save my new task.',
+    title: 'I want to add my new task.',
     guide: `Select BOARD tab on the top, click "LIST" icon at the bottom to make a list. After that, click "Task" icon at the bottom to put your task on it.`,
   },
   {
