@@ -42,7 +42,7 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
       email: userEmail, // eslint-disable-next-line
       profilepicture: userImage ? userImage : UserImage,
     });
-    navigate("/helper");
+    navigate("/setup");
   };
 
   return (
