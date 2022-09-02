@@ -14,14 +14,14 @@ import {
   SliderMark,
 } from "@chakra-ui/react";
 import { Helper } from ".";
-import VolumeUp from "../../assets/images/vol_up_btn.png";
-import VolumeDown from "../../assets/images/vol_down_btn.png";
-import BrightUp from "../../assets/images/bright_up_btn.png";
-import BrightDown from "../../assets/images/bright_down_btn.png";
-import FontUp from "../../assets/images/font_up_btn.png";
-import FontDown from "../../assets/images/font_down_btn.png";
-import VibrationUp from "../../assets/images/vibr_up_btn.png";
-import VibrationDown from "../../assets/images/vibr_down_btn.png";
+import VolumeUp from "../../assets/images/vol_up_btn.svg";
+import VolumeDown from "../../assets/images/vol_down_btn.svg";
+import BrightUp from "../../assets/images/bright_up_btn.svg";
+import BrightDown from "../../assets/images/bright_down_btn.svg";
+import FontUp from "../../assets/images/font_up_btn.svg";
+import FontDown from "../../assets/images/font_down_btn.svg";
+import VibrationUp from "../../assets/images/vibr_up_btn.svg";
+import VibrationDown from "../../assets/images/vibr_down_btn.svg";
 
 function Setup({
   decreaseFont,
