@@ -204,7 +204,7 @@ function Setup({
               filter: `contrast(${fontBright}%)`,
             }}
           >
-            Add and edit helpers below
+            Add and edit contacts below
           </Heading>
           <Helper mdFont={mdFont} fontBright={fontBright} />
         </Box>
