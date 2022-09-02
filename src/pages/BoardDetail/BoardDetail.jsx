@@ -68,7 +68,8 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
     db.tasks.update(id, { change: "true" });
     setTaskInput(updatedTask.task);
   };
-  const shareTask = () => {
+  const shareTask = (e) => {
+    e.stopPropagation();
     setSharePopup(!sharePopup);
   };
   const newTaskRef = useRef(null);
