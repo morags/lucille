@@ -33,6 +33,7 @@ function Board({ mdFont, fontBright, smFont }) {
   const [sharePopup, setSharePopup] = useState(false);
 
   const allHelpers = useLiveQuery(() => db.helpers.toArray());
+  const allTasks = useLiveQuery(() => db.tasks.toArray());
 
   const boardList = useLiveQuery(() =>
     db.boards.where({ archived: "false", deleted: "false" }).toArray()
@@ -62,7 +63,8 @@ function Board({ mdFont, fontBright, smFont }) {
     setButtonPopup(!buttonPopup);
   };
 
-  const shareBoard = () => {
+  const shareBoard = (e) => {
+    e.stopPropagation();
     setSharePopup(!sharePopup);
   };
 
@@ -218,6 +220,7 @@ function Board({ mdFont, fontBright, smFont }) {
                     allHelpers?.map((helper) => (
                       <Box
                         key={helper.id}
+                        onClick={() => window.open("mailto:" +helper.email +"?subject=I need your help with these tasks&body=" + allTasks?.filter((task) => task.boardid === String(selectedId)).map((task) => task.task).toString())} // eslint-disable-line
                         backgroundColor="#ffffff"
                         w="80px"
                         h="80px"
