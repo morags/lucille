@@ -192,9 +192,10 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
                   {index + 1}
                 </Heading>
                 <Textarea
+                  autoFocus
                   key={task.id}
                   ref={newTaskRef}
-                  defaultValue={taskInput}
+                  defaultValue={task.new === "true" ? "" : taskInput}
                   resize="none"
                   onBlur={(e) => changeTaskNewValue([task.id, e.target.value])}
                   placeholder="Add new task"
