@@ -6,8 +6,10 @@ import { db } from '../../utils/db';
 
 function CreateList({ mdFont }) {
   const navigate = useNavigate();
+  // React hook to manage the state of the new board/list name
   const [boardName, setBoardName] = useState('');
 
+  // The functions that gets fired when hitting the create new board/list
   const addBoard = async () => {
     await db.boards.add({
       name: boardName,
@@ -15,6 +17,7 @@ function CreateList({ mdFont }) {
       deleted: "false",
       taskscount: 0
     })
+    // Then navigate to the main page
     navigate('/');
   }
 

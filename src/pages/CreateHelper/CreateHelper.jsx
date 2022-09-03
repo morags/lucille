@@ -8,6 +8,7 @@ import { UserImage } from "../../assets";
 
 function CreateHelper({ mdFont, smFont, fontBright }) {
   const navigate = useNavigate();
+  // Different useState hooks to capture user's entry from the different fields
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userImage, setUserImage] = useState("");
@@ -16,7 +17,9 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
     setUserImage(img);
   };
 
+  // Convert the uploaded images to base64 to use them as the profile picture
   const imageToBase64 = (file) => {
+    // Create a new instance of the Filereader class to read the uploaded file via the user
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -24,12 +27,15 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
     };
   };
 
+  // Re-run the converter every time the user changes the selected file
   const onImageChange = (e) => {
     const file = e.target.files[0];
     imageToBase64(file);
   };
 
+  // The function that handles the adding of a new helper
   const addHelper = async () => {
+    // Check the form if the user did not provide name or email, render Please fill the form
     if (!username || !userEmail)
       return (
         <Heading as="h3" style={{ fontSize: `${mdFont}px` }}>
@@ -37,11 +43,14 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
         </Heading>
       );
 
+    // Else add the helper to the db 
     await db.helpers.add({
       name: username,
       email: userEmail, // eslint-disable-next-line
       profilepicture: userImage ? userImage : UserImage,
     });
+
+    // and navigate back to the /setup page
     navigate("/setup");
   };
 

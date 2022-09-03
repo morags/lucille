@@ -8,10 +8,14 @@ import { db } from "../../utils/db";
 import { CancelIcon, RestoreList } from "../../assets";
 
 function Archive({ mdFont, fontBright }) {
+  // React hook to manage the selected board/list id
   const [selectedId, setSelectedId] = useState("");
+  // React hook to manage the state of popup control variable
   const [buttonPopup, setButtonPopup] = useState(false);
+  // React hook to manage the selected board/list name
   const [selectedName, setSelectedName] = useState("");
 
+  // Get all archived boards/list from the db by querying it from the boards table and checking for the archived column
   let archives = useLiveQuery(() =>
     db.boards.where("archived").equals("true").toArray()
   );
@@ -21,11 +25,14 @@ function Archive({ mdFont, fontBright }) {
       archives = undefined;
     }
   }
+
+  // Function to manage and set the selected boardid and name by calling the hooks callbacks functions
   const selectIdName = (boardId, boardName) => {
     setSelectedId(boardId);
     setSelectedName(boardName);
   };
 
+  // bind funtion to use whith the useLongPress hook (external library)
   const bind = useLongPress(() => {
     archives.map((archivedBoard) => {
       if (archivedBoard.id === selectedId) {
@@ -35,6 +42,7 @@ function Archive({ mdFont, fontBright }) {
     });
   });
 
+  // Function to change the state of an archived board
   const archiveBoard = (id) => {
     db.boards.update(id, { archived: "false" });
     setButtonPopup(!buttonPopup);
@@ -66,7 +74,7 @@ function Archive({ mdFont, fontBright }) {
         height="50%"
       >
         {archives
-          ? archives.map((archive) => (
+          ? archives.map((archive) => ( // Check if there are any archived boards/lists, if yes then render the below grid
               <GridItem
                 key={archive.id}
                 display="flex"
@@ -108,7 +116,7 @@ function Archive({ mdFont, fontBright }) {
               </GridItem>
             ))
           : ""}
-        {buttonPopup && (
+        {buttonPopup && ( // Check the popup control variable and show the extra options if the value is yes
           <Box
             backgroundColor="#cccccc"
             position="absolute"

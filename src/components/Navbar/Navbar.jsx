@@ -10,8 +10,8 @@ function Navbar({ path }) {
     <header>
       <nav>
         <Box display="flex" justifyContent="space-between" p="0 20px">
-          {navData.map((navItem) =>
-            path === navItem.to ? (
+          {navData.map((navItem) => // Go through the items in the navData file via the map method and render them 
+            path === navItem.to ? ( // This ternanry operation will check the active pathname and set the coresponding nav item background to green
               <NavLink
                 to={navItem.to}
                 key={navItem.title}
@@ -30,7 +30,7 @@ function Navbar({ path }) {
                   borderBottomColor="#cedcbf"
                 />
               </NavLink>
-            ) : (
+            ) : ( // Otherwise set the remaining nav items background to none
               <NavLink
                 to={navItem.to}
                 key={navItem.title}

@@ -23,64 +23,101 @@ import {
 } from "../../assets";
 
 function BoardDetail({ mdFont, smFont, fontBright }) {
+
+  // React hook to handle the provided task text
   const [taskInput, setTaskInput] = useState("");
+
+  // React hook to check if the popup for extra options should be shown or not
   const [buttonPopup, setButtonPopup] = useState(false);
+
+  // React hook to check if the popup for share with helpers should be shown or not
   const [sharePopup, setSharePopup] = useState(false);
+
+  // The current boardid variable
   const { boardId } = useParams();
 
+
+  // Get all the tasks for the current active board from the db
   const getTasks = useLiveQuery(() =>
     db.tasks.where({ boardid: boardId }).toArray()
   );
 
+  // Get the number of current tasks from the board table for the active board
   const currentBoardTasksCount = useLiveQuery(() =>
     db.boards.get(parseInt(boardId, 10))
   );
 
   const boardData = getTasks;
 
+  // Get all the helpers from the db
   const allHelpers = useLiveQuery(() => db.helpers.toArray());
 
+  // bind funtion to user whith the useLongPress hook (external library)
   const bind = useLongPress(() => {
+    // Change show pop up value to true when long press is detected
     setButtonPopup(true);
   });
 
+  // React hook to get the id for the tasks an action been performed on
   const [taskId, setTaskId] = useState("");
 
+  // The function to handle the task completion operation
   const completeTask = async (id) => {
+    // Get the specific task an action been performed on
     const getTaskData = boardData.filter((taskItem) => taskItem.id === id);
+    // Get its current complete value and parse it as a boolean type
     const currentTaskCompletedValue = JSON.parse(getTaskData[0].completed);
+    // Reverese the value to either mark it as completed or uncompleted and save it into the var
     const reverseValue = !currentTaskCompletedValue;
+
+    // Check if the current value is true
     if(currentTaskCompletedValue === true){
+      // Increase the number of tasks by one
       await db.boards.update(parseInt(boardId, 10), {
         taskscount: currentBoardTasksCount.taskscount + 1,
       });
     } else {
+      // If not, decrease the number of tasks by one
       await db.boards.update(parseInt(boardId, 10), {
         taskscount: currentBoardTasksCount.taskscount - 1,
       });
     }
+    // Save the new complete value in the db
     db.tasks.update(id, { completed: reverseValue.toString() });
+    // Remove the popup
     setButtonPopup(false);
   };
 
+  // Get the tasks completed status from the db
   const taskCompletedStatus = (id) => {
     const getTaskData = boardData.filter((taskItem) => taskItem.id === id);
     const currentTaskCompletedValue = JSON.parse(getTaskData[0].completed);
     return currentTaskCompletedValue;
   };
 
+  // A function to handle the task edit operation
   const editTask = (id) => {
+    // Select the tasks the action been performed on
     const [updatedTask] = boardData.filter((taskItem) => taskItem.id === id);
+    // Update its value in the db
     db.tasks.update(id, { change: "true" });
+    // Call the hook callback function to update the state with the new value
     setTaskInput(updatedTask.task);
   };
+
+  // The function to handle the share with helper functionality
   const shareTask = (e) => {
+    // This method is to make sure the onClick event lister was meant for this specific component
     e.stopPropagation();
+    // Reverse the share popup value
     setSharePopup(!sharePopup);
   };
+
+  // This is used to change the screen view to the newly created task
   const newTaskRef = useRef(null);
   const executeScroll = () => newTaskRef.current.scrollIntoView();
 
+  // The function that handles the adding of new task in the db
   const addTaskNew = async () => {
     await db.tasks.add({
       boardid: boardId,
@@ -89,12 +126,15 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
       new: "true",
       change: "false"
     });
+    // and update the number of current tasks
     await db.boards.update(parseInt(boardId, 10), {
       taskscount: currentBoardTasksCount.taskscount + 1,
     });
+    // Scroll the view to the new task location
     executeScroll();
   };
 
+  // Update the newly creatd task value when clicking anywhere on the screen
   const changeTaskNewValue = async (task) => {
     db.tasks.update(task[0], { new: "false", change: "false", task: task[1] });
     setTaskInput("")
@@ -132,7 +172,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
         </Heading>
 
         {boardData &&
-          boardData.map((task, index) =>
+          boardData.map((task, index) => // Check if there are any tasks, if yes render the below
             task.new === "true" || task.change === "true" ? (
               <Box
                 key={task.id}
@@ -223,7 +263,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
           )}
       </Box>
 
-      {buttonPopup && (
+      {buttonPopup && ( // If the popup state is true then render the below components
         <Box
           backgroundColor="#cccccc"
           position="absolute"

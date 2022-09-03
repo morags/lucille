@@ -8,13 +8,14 @@ import { NewUser } from "../../assets";
 
 function Helper({ mdFont, smFont, fontBright }) {
 
+  // Get the added helpers from the browser DB
   const helpers = useLiveQuery(() => db.helpers.toArray());
 
   return (
     <Box border='2px' borderColor='gray.600' h="100%" position="relative">
       <Box height="100%" overflowY="scroll">
         <Grid templateColumns="repeat(3, 1fr)" gap={5} p="20px" overflowY="auto">
-          {helpers?.map((user) => (
+          {helpers?.map((user) => ( // JS ternanry conditional operator to check if there users in the db, then render the below component with the users. If not, don't render any child component
             <GridItem
               key={user.id}
               bgColor="#ffffff"
