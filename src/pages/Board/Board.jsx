@@ -11,6 +11,8 @@ import {
   Image,
   Divider,
   Textarea,
+  Button,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useLongPress } from "use-long-press";
@@ -123,18 +125,11 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
       >
         {boardList?.map((board) => // Check if there are any boards in the db, if yes then render the grid with items
           board.new === "true" ? (
-            <GridItem
-              // w="100%"
+            <GridItem              
               key={board.id}
-              bgImage={NotebookBG}
-              // bgRepeat="no-repeat"
-              // bgPosition="top"
-              // h="150px"
+              bgImage={NotebookBG}              
               border="0.5px"
-              borderColor="#990000"
-              // display="flex"
-              // alignItems="center"
-              // justifyContent="center"
+              borderColor="#990000"              
               p="10px"
               style={{ cursor: "pointer" }}
               position="relative"
@@ -157,8 +152,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 resize="none"
                 onBlur={(e) => changeBoardNewValue([board.id, e.target.value])}
                 placeholder="Add List name"
-                border="0px"
-                // borderColor="#DCD3D3"
+                border="0px"                
                 style={{ fontSize: `${mdFont - 10}px`}}
                 fontWeight="bold"
               />
@@ -169,16 +163,11 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
               key={board.id}
               style={{ height: "150px" }}
             >
-              <GridItem
-                // w="100%"
+              <GridItem               
                 key={board.id}
-                bgImage={NotebookBG}
-                // bgRepeat="no-repeat"
-                // bgPosition="top"
-                // h="150px"
+                bgImage={NotebookBG}                
                 border="0.5px"
-                borderColor="#990000"
-                // display="flex"
+                borderColor="#990000"                
                 alignItems="center"
                 justifyContent="center"
                 p="10px"
@@ -192,9 +181,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 bgSize="100%"
                 bgPosition="center"
                 bgRepeat="no-repeat"
-                display="flex"
-                // alignItems="center"
-                // justifyContent="center"
+                display="flex"                
                 boxShadow="5px 5px 5px rgb(137, 137, 137)"
               >
                 <Heading
@@ -300,17 +287,34 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
       <Divider style={{ border: "3px solid red", borderRadius: "5px" }} />
       <Box height="18%">
         <Archive mdFont={mdFont} fontBright={fontBright} />
-      </Box>
-      <Box
-        style={{ cursor: "pointer" }}
-        w="70px"
-        position="absolute"
-        right="10px"
-        bottom="1px"
-        onClick={addBoard}
-      >
-        <Image src={ListIcon} />
-      </Box>
+      </Box>  
+      
+      {/* Add list icon */}
+      <SimpleGrid columns={5} spacing={15} position="relative" bottom="80px">
+        <Box />
+        <Box />
+        <Box />
+        <Box />
+        <Box>
+          <Button
+            border="3.5px"
+            borderColor="#a9a9a9"
+            bgImage={`url( ${ListIcon} )`}
+            _hover={{ bg: '#a9a9a980', bgImage: `url( ${ListIcon} )`, bgSize:"110%", bgPosition:"center" }}
+            borderRadius="47.5px"
+            w="95px"
+            h="95px"
+            bgSize="100%"
+            bgPosition="center"
+            bgRepeat="no-repeat"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            boxShadow="5px 5px 5px rgb(137, 137, 137)"
+            onClick={addBoard}
+          />
+        </Box>
+      </SimpleGrid>
     </Box>
   );
 }
