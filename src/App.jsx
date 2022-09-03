@@ -82,7 +82,7 @@ function App() {
     <main className="app">
       <Container
         pb={8}
-        border="2px"
+        border="2mm ridge rgba(192, 192, 192, .6);"
         borderColor="gray.500"
         w="100%"
         height="90vh"
@@ -97,7 +97,7 @@ function App() {
         <Box h="100%" bg="#e8e8e6" width="100%">
           <Box h="100%" mt="-5px">
             <Navbar path={pathValue} />
-            <Box mr="5px" ml="5px" h="90%">
+            <Box mr="5px" ml="5px" h="90%" border="2mm ridge rgba(192, 192, 192, .7);">
               <Routes>
                 <Route
                   path="/"

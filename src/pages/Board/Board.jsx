@@ -115,7 +115,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
   return (
     <Box position="relative" height="100%" p="15px" backgroundColor="#cedcbf" border='2px' borderColor='gray.500'>
       <Grid
-        p="0 20px"
+        p="0 10px"
         templateColumns="repeat(3, 1fr)"
         gap={5}
         overflowY="auto"
@@ -124,7 +124,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
         {boardList?.map((board) => // Check if there are any boards in the db, if yes then render the grid with items
           board.new === "true" ? (
             <GridItem
-              w="100%"
+              w="80%"
               key={board.id}
               bgImage={NotebookBG}
               bgRepeat="no-repeat"
@@ -139,6 +139,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
               style={{ cursor: "pointer" }}
               position="relative"
               ref={newListRef}
+              boxShadow="3px 13px 21px -1px rgba(0,0,0,0.45)"
             >
               <Textarea
                 key={board.id}
@@ -159,14 +160,12 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
               style={{ height: "150px" }}
             >
               <GridItem
-                w="100%"
+                w="80%"
                 key={board.id}
                 bgImage={NotebookBG}
                 bgRepeat="no-repeat"
                 bgPosition="top"
                 h="150px"
-                border="1px"
-                borderColor="#990000"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
@@ -175,6 +174,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 onMouseEnter={() => selectIdName(board.id, board.name)}
                 style={{ cursor: "pointer" }}
                 position="relative"
+                boxShadow="3px 13px 21px -1px rgba(0,0,0,0.45)"
               >
                 <Heading
                   textAlign="center"
