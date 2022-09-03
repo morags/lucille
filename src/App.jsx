@@ -20,21 +20,28 @@ import {
 import CreateList from "./components/CreateList/CreateList";
 
 function App() {
+  // The below two State Hook controls the font globally in the application
   const [mdFont, setMdFont] = useState(30);
   const [smFont, setSmFont] = useState(20);
+  // The below State Hook controls the font contrast globally in the application
   const [fontBright, setFontBright] = useState(100);
+  // The below State Hook is used to check on which page the user is to set the tab background
   const [pathValue, setPathValue] = useState("");
 
+  // This function is used the get the prop from the child component to get the pathname in the URL
   const pullPathName = (pathName) => {
     setPathValue(pathName);
   };
 
+
+  // Aync function to fetch settings table from the db and use the callback functions to store the data in variables
   const allSettings = db.settings.toArray().then((setting) => {
     setMdFont(setting[0].fontsize);
     setSmFont(setting[0].fontsize - 10);
     setFontBright(setting[0].brightness);
   });
 
+  // The funciton below is being used to increase the font size and save its data back to the db
   const increaseFont = () => {
     const newMdFont = mdFont + 2;
     setMdFont(newMdFont);
@@ -42,6 +49,7 @@ function App() {
     db.settings.update(1, { fontsize: newMdFont });
   };
 
+  // The funciton below is being used to decrease the font size and save its data back to the db
   const decreaseFont = () => {
     const newMdFont = mdFont - 2;
     setMdFont(newMdFont);
@@ -49,6 +57,7 @@ function App() {
     db.settings.update(1, { fontsize: newMdFont });
   };
 
+  // The funciton below is being used to increase the font contrast and save its data back to the db
   const increaseBright = () => {
     const newFontBright = fontBright + 20;
     setFontBright(newFontBright);
@@ -56,11 +65,13 @@ function App() {
     db.settings.update(1, { brightness: newFontBright });
   };
 
+  // The funciton below is being used to decrease the font contrast and save its data back to the db
   const decreaseBright = () => {
+    // If the the contrast is getting below 0, set it to zero
     if (fontBright <= 0) {
       setFontBright(0);
       db.settings.update(1, { brightness: 0 });
-    } else {
+    } else { // Otherwise decrease it
       const newFontBright = fontBright - 20;
       setFontBright(fontBright - 20);
       db.settings.update(1, { brightness: newFontBright });
@@ -92,6 +103,7 @@ function App() {
                   path="/"
                   element={
                     <Board
+                    // Pass different setting props to the Board comp
                       mdFont={mdFont}
                       smFont={smFont}
                       fontBright={fontBright}
@@ -103,6 +115,7 @@ function App() {
                   path="/board/:boardId"
                   element={
                     <BoardDetail
+                      // Pass different setting props to the BoardDetail comp
                       mdFont={mdFont}
                       smFont={smFont}
                       fontBright={fontBright}
@@ -117,6 +130,7 @@ function App() {
                   path="/guide"
                   element={
                     <Guide
+                      // Pass different setting props to the Guide comp
                       smFont={smFont}
                       fontBright={fontBright}
                       pathName={pullPathName}
@@ -127,6 +141,7 @@ function App() {
                   path="/helper/create"
                   element={
                     <CreateHelper
+                      // Pass different setting props to the CreateHelper comp
                       mdFont={mdFont}
                       smFont={smFont}
                       fontBright={fontBright}
@@ -138,6 +153,7 @@ function App() {
                   path="/setup"
                   element={
                     <Setup
+                      // Pass different setting props to the Setup comp
                       mdFont={mdFont}
                       increaseFont={increaseFont}
                       decreaseFont={decreaseFont}

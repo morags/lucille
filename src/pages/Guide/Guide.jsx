@@ -25,7 +25,7 @@ function Guide({ smFont, fontBright, pathName }) {
       style={{ overflow: "auto" }}
       height="full"
     >
-      {guideData?.map((guide, i) => (
+      {guideData?.map((guide, i) => ( // Go through all the items in the guideData file via the map method to render them on the screen via an Accordian component
         <Accordion key={guide.id} defaultIndex={[guide.id]} allowMultiple>
           <AccordionItem
             mb="20px"

@@ -27,27 +27,37 @@ import {
 import { Archive } from ".";
 
 function Board({ mdFont, fontBright, smFont, pathName }) {
+  // React hook to handle the popup state, this is used to render the extra options when long pressing
   const [buttonPopup, setButtonPopup] = useState(false);
+  // React hook to store and update the selected list ID
   const [selectedId, setSelectedId] = useState("");
+  // React hook to store and update the selected list name
   const [selectedName, setSelectedName] = useState("");
+  // React hook to handle the popup state for the sharing functionality
   const [sharePopup, setSharePopup] = useState(false);
 
+  // Get all the helpers from the db
   const allHelpers = useLiveQuery(() => db.helpers.toArray());
+  // Get all the tasks from the db
   const allTasks = useLiveQuery(() => db.tasks.toArray());
 
+  // Get the pathname from the URL and pass it to the App component
   useEffect(() => {
     pathName(window.location.pathname);
   })
   
+  // Get all the board/lsits which are not archived or deleted
   const boardList = useLiveQuery(() =>
     db.boards.where({ archived: "false", deleted: "false" }).toArray()
   );
 
+  // Get and update the selected board/list ID and Name
   const selectIdName = (boardId, boardName) => {
     setSelectedId(boardId);
     setSelectedName(boardName);
   };
 
+  // bind funtion to use whith the useLongPress hook (external library)
   const bind = useLongPress(() => {
     boardList.map((board) => {
       if (board.id === selectedId) {
@@ -57,25 +67,33 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
     });
   });
 
+  // The function that handles the board/list deletion
   const deleteBoard = (id) => {
+    // First reverse the popup value
     setButtonPopup(false);
+    // then update the db with the new value for that specific board/list
     db.boards.update(id, { deleted: "true" });
   };
 
+  // The function that handles the archiving of the board/list
   const archiveBoard = (id) => {
+    // Update the db with the new value for that specific board/list
     db.boards.update(id, { archived: "true" });
+    // Then change the popup value to hide the option
     setButtonPopup(!buttonPopup);
   };
 
+  // This function makes sure the onClick event for the sharing function is fired only if clicking on the exact component
   const shareBoard = (e) => {
     e.stopPropagation();
     setSharePopup(!sharePopup);
   };
 
+  // This is used to change the screen view to the newly created board/list
   const newListRef = useRef(null)
-
   const executeScroll = () => newListRef.current.scrollIntoView()    
 
+  // The function that handles the adding of new board/list in the db
   const addBoard = async () => {
     await db.boards.add({
       name: "",
@@ -87,6 +105,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
     executeScroll()
   };
 
+  // Update the newly creatd board/list value when clicking anywhere on the screen
   const changeBoardNewValue = async (board) => {
     db.boards.update(board[0], { new: "false", name: board[1]});
   };
@@ -102,7 +121,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
         overflowY="auto"
         height="80%"
       >
-        {boardList?.map((board) =>
+        {boardList?.map((board) => // Check if there are any boards in the db, if yes then render the grid with items
           board.new === "true" ? (
             <GridItem
               w="100%"
@@ -171,7 +190,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
           )
         )}
 
-        {buttonPopup && (
+        {buttonPopup && ( // If popup state value is true, show the extra options
           <Box
             backgroundColor="#cccccc"
             position="absolute"
@@ -222,7 +241,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                   onClick={shareBoard}
                 />
                 <Box position="absolute" display="flex">
-                  {sharePopup &&
+                  {sharePopup && // If popup state value is true, show the extra options for sharing
                     allHelpers?.map((helper) => (
                       <Box
                         key={helper.id}

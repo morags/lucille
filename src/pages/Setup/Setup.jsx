@@ -33,14 +33,18 @@ function Setup({
   pathName,
 }) {
   const [sliderValue, setSliderValue] = useState(20);
+
+  // React useEffect hook to pass the pathname from the URL to the App component
   useEffect(() => {
     pathName(window.location.pathname);
   });
 
+  // Function to increase the volume by calling the callback functin in the useState hook
   const increaseVol = () => {
     setSliderValue(sliderValue + 5);
   };
 
+  // Function to decrease the volume by calling the callback functin in the useState hook
   const decreaseVol = () => {
     setSliderValue(sliderValue - 5);
   };
@@ -58,6 +62,7 @@ function Setup({
           <Heading
             as="h3"
             style={{
+              // Pass the mdFont variables which contains the value stored in the db
               fontSize: `${mdFont}px`,
             }}
             filter={`contrast(${fontBright}%)`}
@@ -73,6 +78,7 @@ function Setup({
             <Image
               src={FontDown}
               w="80px"
+              // onClick event liseter to call the decreaseFont function when clicking on the element
               onClick={decreaseFont}
               style={{ cursor: "pointer" }}
             />
@@ -88,6 +94,7 @@ function Setup({
             <Image
               src={FontUp}
               w="80px"
+              // onClick event liseter to call the increaseFont function when clicking on the element
               onClick={increaseFont}
               style={{ cursor: "pointer" }}
             />
@@ -113,6 +120,7 @@ function Setup({
           >
             <Image
               src={BrightDown}
+              // onClick event liseter to call the decreaseBright function when clicking on the element
               onClick={decreaseBright}
               w="80px"
               style={{ cursor: "pointer" }}
@@ -128,6 +136,7 @@ function Setup({
             </Text>
             <Image
               src={BrightUp}
+              // onClick event liseter to call the increaseBright function when clicking on the element
               onClick={increaseBright}
               w="80px"
               style={{ cursor: "pointer" }}
