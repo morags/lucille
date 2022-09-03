@@ -124,30 +124,41 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
         {boardList?.map((board) => // Check if there are any boards in the db, if yes then render the grid with items
           board.new === "true" ? (
             <GridItem
-              w="100%"
+              // w="100%"
               key={board.id}
               bgImage={NotebookBG}
-              bgRepeat="no-repeat"
-              bgPosition="top"
-              h="150px"
-              border="1px"
+              // bgRepeat="no-repeat"
+              // bgPosition="top"
+              // h="150px"
+              border="0.5px"
               borderColor="#990000"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
+              // display="flex"
+              // alignItems="center"
+              // justifyContent="center"
               p="10px"
               style={{ cursor: "pointer" }}
               position="relative"
               ref={newListRef}
+
+              w="150px"
+              h="153.75px" // h = (205/200) x w              
+              bgSize="100%"
+              bgPosition="center"
+              bgRepeat="no-repeat"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              boxShadow="5px 5px 5px rgb(137, 137, 137)"
             >
               <Textarea
                 key={board.id}
                 variant="filled"
+                h="120.75px"
                 resize="none"
                 onBlur={(e) => changeBoardNewValue([board.id, e.target.value])}
                 placeholder="Add List name"
-                border="2px"
-                borderColor="#DCD3D3"
+                border="0px"
+                // borderColor="#DCD3D3"
                 style={{ fontSize: `${mdFont - 10}px`}}
                 fontWeight="bold"
               />
@@ -159,15 +170,15 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
               style={{ height: "150px" }}
             >
               <GridItem
-                w="100%"
+                // w="100%"
                 key={board.id}
                 bgImage={NotebookBG}
-                bgRepeat="no-repeat"
-                bgPosition="top"
-                h="150px"
-                border="1px"
+                // bgRepeat="no-repeat"
+                // bgPosition="top"
+                // h="150px"
+                border="0.5px"
                 borderColor="#990000"
-                display="flex"
+                // display="flex"
                 alignItems="center"
                 justifyContent="center"
                 p="10px"
@@ -175,11 +186,21 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 onMouseEnter={() => selectIdName(board.id, board.name)}
                 style={{ cursor: "pointer" }}
                 position="relative"
+
+                w="150px"
+                h="153.75px" // h = (205/200) x w                
+                bgSize="100%"
+                bgPosition="center"
+                bgRepeat="no-repeat"
+                display="flex"
+                // alignItems="center"
+                // justifyContent="center"
+                boxShadow="5px 5px 5px rgb(137, 137, 137)"
               >
                 <Heading
                   textAlign="center"
                   style={{
-                    fontSize: `${mdFont}px`,
+                    fontSize: `${mdFont - 10}px`,
                     filter: `contrast(${fontBright}%)`,
                   }}
                 >
