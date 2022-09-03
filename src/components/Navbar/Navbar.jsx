@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Button} from "@chakra-ui/react";
 import navData from "./navData";
 
 function Navbar({ path }) {
@@ -17,7 +17,7 @@ function Navbar({ path }) {
                 key={navItem.title}
                 style={{ margin: "0 10px" }}
               >
-                <Image
+                {/* <Image
                   src={navItem.icon}
                   key={navItem.title}
                   boxSize="100px"
@@ -28,7 +28,9 @@ function Navbar({ path }) {
                   border="2px"
                   borderColor="gray.500"
                   borderBottomColor="#cedcbf"
-                />
+                  
+                /> */}
+                <Button padding="3px" bg="#ededeb" boxSize="100px" margin="10px" boxShadow="5px 5px 5px rgb(137, 137, 137)" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px"><img alt="fjsdkj" key={navItem.title} src={navItem.icon} /></Button>
               </NavLink>
             ) : ( // Otherwise set the remaining nav items background to none
               <NavLink
@@ -36,12 +38,16 @@ function Navbar({ path }) {
                 key={navItem.title}
                 style={{ margin: "0 10px" }}
               >
-                <Image
+                {/* <Image
                   src={navItem.icon}
                   key={navItem.title}
                   boxSize="100px"
                   objectFit="contain"
-                />
+                  border="3px"
+                  borderColor="#a9a9a9"
+                  borderRadius="37.5px"
+                /> */}
+                <Button padding="3px" bg="#ededeb" boxSize="100px" margin="10px" boxShadow="5px 5px 5px rgb(137, 137, 137)" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px"><img alt="fjsdkj" key={navItem.title} src={navItem.icon} /></Button>
               </NavLink>
             )
           )}
