@@ -9,7 +9,7 @@ function Navbar({ path }) {
   return (
     <header>
       <nav>
-        <Box display="flex" justifyContent="space-between" p="0 20px">
+        <Box display="flex" justifyContent="row-start" p="0 20px">
           {navData.map((navItem) => // Go through the items in the navData file via the map method and render them 
             path === navItem.to ? ( // This ternanry operation will check the active pathname and set the coresponding nav item background to green
               <NavLink
