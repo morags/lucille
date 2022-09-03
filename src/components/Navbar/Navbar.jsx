@@ -31,7 +31,7 @@ function Navbar({ path }) {
                   bg="#ededeb"
                   
                 /> */}
-                <Button padding="3px" bg="#cedcbf" boxSize="100px" margin="10px" boxShadow="5px 5px 5px rgb(137, 137, 137)" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px"><img alt="fjsdkj" key={navItem.title} src={navItem.icon} /></Button>
+                <Button padding="3px" bg="#cedcbf" boxSize="105px" margin="10px" boxShadow="5px 5px 5px rgb(137, 137, 137)" border="3px" borderColor="#a9a9a9" borderStyle="solid" borderRadius="10px"><img alt="fjsdkj" key={navItem.title} src={navItem.icon} /></Button>
               </NavLink>
             ) : ( // Otherwise set the remaining nav items background to none
               <NavLink
