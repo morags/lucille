@@ -2,9 +2,8 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Box, Button, } from "@chakra-ui/react";
+import { Box, Button} from "@chakra-ui/react";
 import navData from "./navData";
-// import LucilleIcon from "../../assets/images/Final_lucille_logo.png";
 
 function Navbar({ path }) {
   return (
@@ -30,8 +29,6 @@ function Navbar({ path }) {
               </NavLink>
             )
           )}
-
-          {/* <Image order= '1' w='100px'h='30px' objectFit='cover'src={LucilleIcon} alt='Logo of the app' /> */}
         </Box>
       </nav>
     </header>

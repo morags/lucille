@@ -79,7 +79,7 @@ function App() {
   };
 
   return (
-    <main className="app" >
+    <main className="app">
       <Container
         pb={8}
         border="2px"
