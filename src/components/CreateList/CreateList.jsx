@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Box, Button, Heading, Textarea } from '@chakra-ui/react';
@@ -11,12 +12,16 @@ function CreateList({ mdFont }) {
 
   // The functions that gets fired when hitting the create new board/list
   const addBoard = async () => {
-    await db.boards.add({
-      name: boardName,
-      archived: "false",
-      deleted: "false",
-      taskscount: 0
-    })
+    try {
+      await db.boards.add({
+        name: boardName,
+        archived: "false",
+        deleted: "false",
+        taskscount: 0
+      })
+    } catch (e) {
+      console.log("Failed to add new board => ", e);
+    }
     // Then navigate to the main page
     navigate('/');
   }

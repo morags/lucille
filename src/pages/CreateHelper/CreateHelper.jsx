@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable consistent-return */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
@@ -35,8 +36,9 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
 
   // The function that handles the adding of a new helper
   const addHelper = async () => {
-    // Check the form if the user did not provide name or email, render Please fill the form
-    if (!username || !userEmail)
+    try {
+      // Check the form if the user did not provide name or email, render Please fill the form
+      if (!username || !userEmail)
       return (
         <Heading as="h3" style={{ fontSize: `${mdFont}px` }}>
           Please fill the form
@@ -48,7 +50,10 @@ function CreateHelper({ mdFont, smFont, fontBright }) {
       name: username,
       email: userEmail, // eslint-disable-next-line
       profilepicture: userImage ? userImage : UserImage,
-    });
+    })
+    } catch (error) {
+      console.log("Failed to perform DB actions => ", error);
+    }
 
     // and navigate back to the /setup page
     navigate("/setup");

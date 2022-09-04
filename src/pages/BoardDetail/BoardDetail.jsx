@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
 /* eslint-disable array-callback-return */
@@ -63,6 +64,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
 
   // The function to handle the task completion operation
   const completeTask = async (id) => {
+    try {
     // Get the specific task an action been performed on
     const getTaskData = boardData.filter((taskItem) => taskItem.id === id);
     // Get its current complete value and parse it as a boolean type
@@ -85,6 +87,10 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
     // Save the new complete value in the db
     db.tasks.update(id, { completed: reverseValue.toString() });
     // Remove the popup
+    } catch (e) {
+      console.log("Failed to perform DB actions => ", e);
+    }
+
     setButtonPopup(false);
   };
 
@@ -119,24 +125,33 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
 
   // The function that handles the adding of new task in the db
   const addTaskNew = async () => {
-    await db.tasks.add({
-      boardid: boardId,
-      task: "",
-      completed: "false",
-      new: "true",
-      change: "false"
-    });
-    // and update the number of current tasks
-    await db.boards.update(parseInt(boardId, 10), {
-      taskscount: currentBoardTasksCount.taskscount + 1,
-    });
+    try {
+      await db.tasks.add({
+        boardid: boardId,
+        task: "",
+        completed: "false",
+        new: "true",
+        change: "false"
+      });
+      // and update the number of current tasks
+      await db.boards.update(parseInt(boardId, 10), {
+        taskscount: currentBoardTasksCount.taskscount + 1,
+      });
+    } catch (e) {
+      console.log("Failed to perform db actions => ", e);
+    }
+    
     // Scroll the view to the new task location
     executeScroll();
   };
 
   // Update the newly creatd task value when clicking anywhere on the screen
   const changeTaskNewValue = async (task) => {
-    db.tasks.update(task[0], { new: "false", change: "false", task: task[1] });
+    try {
+      db.tasks.update(task[0], { new: "false", change: "false", task: task[1] });
+    } catch (error) {
+      console.log("Failed to update task => ", error);
+    }
     setTaskInput("")
   };
 

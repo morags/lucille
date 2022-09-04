@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -97,19 +98,28 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
 
   // The function that handles the adding of new board/list in the db
   const addBoard = async () => {
-    await db.boards.add({
-      name: "",
-      archived: "false",
-      deleted: "false",
-      taskscount: 0,
-      new: "true",
-    });
+    try {
+      await db.boards.add({
+        name: "",
+        archived: "false",
+        deleted: "false",
+        taskscount: 0,
+        new: "true",
+      })
+    } catch (e) {
+      console.log("Failed to add new board => ", e);
+    }
     executeScroll()
   };
 
   // Update the newly creatd board/list value when clicking anywhere on the screen
   const changeBoardNewValue = async (board) => {
-    db.boards.update(board[0], { new: "false", name: board[1]});
+    try {
+      db.boards.update(board[0], { new: "false", name: board[1]});
+    } catch (e) {
+      console.log("Failed to update board => ", e);
+    }
+    
   };
 
   
