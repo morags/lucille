@@ -84,6 +84,7 @@ function App() {
         pb={8}
         border="2px"
         borderColor="gray.500"
+        background="rgb(237, 237, 235)"
         w="100%"
         height="90vh"
         centerContent
