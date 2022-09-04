@@ -202,6 +202,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
           <Box
             backgroundColor="#cccccc"
             position="absolute"
+            zIndex="1"
             width="full"
             h="full"
             opacity="0.9"
@@ -284,7 +285,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
           </Box>
         )}
       </Grid>
-      <Divider style={{ border: "3px solid red", borderRadius: "5px" }} />
+      <Divider style={{ border: "3px solid gray", borderRadius: "5px" }} />
       <Box height="18%">
         <Archive mdFont={mdFont} fontBright={fontBright} />
       </Box>  
