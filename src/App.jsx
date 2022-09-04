@@ -86,7 +86,7 @@ function App() {
         borderColor="gray.500"
         background="rgb(237, 237, 235)"
         width="100%"
-        height="130vh"
+        height="120vh"
         centerContent
         display="flex"
         alignItems="center"
