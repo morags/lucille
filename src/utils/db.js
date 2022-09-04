@@ -18,7 +18,7 @@ db.open(); // Open a connection with the DB to perform actions
 async function addDefaultSettings() {
   try {
     await db.settings.add({
-      fontsize: 30,
+      fontsize: 22,
       brightness: 100,
       volume: 20,
       vibration: 1,
