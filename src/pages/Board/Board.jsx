@@ -143,7 +143,6 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
               style={{ cursor: "pointer" }}
               position="relative"
               ref={newListRef}
-
               w="150px"
               h="153.75px" // h = (205/200) x w              
               bgSize="100%"
@@ -184,9 +183,8 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 onMouseEnter={() => selectIdName(board.id, board.name)}
                 style={{ cursor: "pointer" }}
                 position="relative"
-
-                w="150px"
-                h="153.75px" // h = (205/200) x w                
+                w="100%"
+                h="100%"            
                 bgSize="100%"
                 bgPosition="center"
                 bgRepeat="no-repeat"

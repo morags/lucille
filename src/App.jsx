@@ -94,7 +94,7 @@ function App() {
         pl={0}
         pr={0}
       >
-        <Box h="100%" bg="#e8e8e6" width="100%">
+        <Box h="100%" bg="#e8e8e6" width="inherit">
           <Box h="100%" mt="-5px">
             <Navbar path={pathValue} />
             <Box mr="5px" ml="5px" h="90%">
