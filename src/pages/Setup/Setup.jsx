@@ -78,6 +78,7 @@ function Setup({
             <Image
               src={FontDown}
               w="80px"
+              data-testid="decreaseFont"
               // onClick event liseter to call the decreaseFont function when clicking on the element
               onClick={decreaseFont}
               style={{ cursor: "pointer" }}
@@ -87,6 +88,7 @@ function Setup({
                 fontSize: `${mdFont}px`,
                 filter: `contrast(${fontBright}%)`,
               }}
+              data-testid="textFontTest"
               fontWeight="medium"
             >
               I can read this well

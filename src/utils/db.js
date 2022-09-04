@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Dexie } from "dexie";
 
 Dexie.debug = false;
@@ -22,16 +23,22 @@ async function addDefaultSettings() {
       volume: 20,
       vibration: 1,
     });
-  } catch (error) { // eslint-disable-next-line
+  } catch (error) {
+    // eslint-disable-next-line
     console.log(`Failed to add default settings ${error}`);
   }
 }
 
-db.settings
-  .toArray()
-  .then((setting) => {
-    if (setting.length === 0) {
+async function checkIdemPotent() {
+  try {
+    await db.settings.toArray().then((setting) => {
+      if (setting.length === 0) {
         addDefaultSettings();
-    }
-  })
-  .catch((error) => error);
+      }
+    });
+  } catch (error) {
+    console.log("Failed to add default settings values");
+  }
+}
+
+checkIdemPotent();
