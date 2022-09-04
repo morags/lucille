@@ -53,7 +53,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
   // Get all the helpers from the db
   const allHelpers = useLiveQuery(() => db.helpers.toArray());
 
-  // bind funtion to user whith the useLongPress hook (external library)
+  // bind funtion to user with the useLongPress hook (external library)
   const bind = useLongPress(() => {
     // Change show pop up value to true when long press is detected
     setButtonPopup(true);
@@ -113,7 +113,7 @@ function BoardDetail({ mdFont, smFont, fontBright }) {
 
   // The function to handle the share with helper functionality
   const shareTask = (e) => {
-    // This method is to make sure the onClick event lister was meant for this specific component
+    // This method is to make sure the onClick event listener was meant for this specific component
     e.stopPropagation();
     // Reverse the share popup value
     setSharePopup(!sharePopup);

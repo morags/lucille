@@ -79,7 +79,7 @@ function Setup({
               src={FontDown}
               w="80px"
               data-testid="decreaseFont"
-              // onClick event liseter to call the decreaseFont function when clicking on the element
+              // onClick event listener to call the decreaseFont function when clicking on the element
               onClick={decreaseFont}
               style={{ cursor: "pointer" }}
             />
@@ -96,7 +96,7 @@ function Setup({
             <Image
               src={FontUp}
               w="80px"
-              // onClick event liseter to call the increaseFont function when clicking on the element
+              // onClick event listener to call the increaseFont function when clicking on the element
               onClick={increaseFont}
               style={{ cursor: "pointer" }}
             />
@@ -122,7 +122,7 @@ function Setup({
           >
             <Image
               src={BrightDown}
-              // onClick event liseter to call the decreaseBright function when clicking on the element
+              // onClick event listener to call the decreaseBright function when clicking on the element
               onClick={decreaseBright}
               w="80px"
               style={{ cursor: "pointer" }}
@@ -138,7 +138,7 @@ function Setup({
             </Text>
             <Image
               src={BrightUp}
-              // onClick event liseter to call the increaseBright function when clicking on the element
+              // onClick event listener to call the increaseBright function when clicking on the element
               onClick={increaseBright}
               w="80px"
               style={{ cursor: "pointer" }}

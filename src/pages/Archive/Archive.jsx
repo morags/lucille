@@ -32,7 +32,7 @@ function Archive({ mdFont, fontBright }) {
     setSelectedName(boardName);
   };
 
-  // bind funtion to use whith the useLongPress hook (external library)
+  // bind funtion to use with the useLongPress hook (external library)
   const bind = useLongPress(() => {
     archives.map((archivedBoard) => {
       if (archivedBoard.id === selectedId) {

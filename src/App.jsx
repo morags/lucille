@@ -28,20 +28,20 @@ function App() {
   // The below State Hook is used to check on which page the user is to set the tab background
   const [pathValue, setPathValue] = useState("");
 
-  // This function is used the get the prop from the child component to get the pathname in the URL
+  // This function is used to get the prop from the child component to read the pathname in the URL
   const pullPathName = (pathName) => {
     setPathValue(pathName);
   };
 
 
-  // Aync function to fetch settings table from the db and use the callback functions to store the data in variables
+  // Async function to fetch settings table from the db and use the callback functions to store the data in variables
   const allSettings = db.settings.toArray().then((setting) => {
     setMdFont(setting[0].fontsize);
     setSmFont(setting[0].fontsize - 10);
     setFontBright(setting[0].brightness);
   });
 
-  // The funciton below is being used to increase the font size and save its data back to the db
+  // The function below is being used to increase the font size and save its data back to the db
   const increaseFont = () => {
     const newMdFont = mdFont + 2;
     setMdFont(newMdFont);
@@ -49,7 +49,7 @@ function App() {
     db.settings.update(1, { fontsize: newMdFont });
   };
 
-  // The funciton below is being used to decrease the font size and save its data back to the db
+  // The function below is being used to decrease the font size and save its data back to the db
   const decreaseFont = () => {
     const newMdFont = mdFont - 2;
     setMdFont(newMdFont);
@@ -57,7 +57,7 @@ function App() {
     db.settings.update(1, { fontsize: newMdFont });
   };
 
-  // The funciton below is being used to increase the font contrast and save its data back to the db
+  // The function below is being used to increase the font contrast and save its data back to the db
   const increaseBright = () => {
     const newFontBright = fontBright + 20;
     setFontBright(newFontBright);
@@ -65,7 +65,7 @@ function App() {
     db.settings.update(1, { brightness: newFontBright });
   };
 
-  // The funciton below is being used to decrease the font contrast and save its data back to the db
+  // The function below is being used to decrease the font contrast and save its data back to the db
   const decreaseBright = () => {
     // If the the contrast is getting below 0, set it to zero
     if (fontBright <= 0) {

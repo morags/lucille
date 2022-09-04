@@ -15,7 +15,7 @@ function Helper({ mdFont, smFont, fontBright }) {
     <Box border='2px' borderColor='gray.600' h="100%" position="relative">
       <Box height="100%" overflowY="auto">
         <Grid templateColumns="repeat(3, 1fr)" gap={5} p="20px" overflowY="auto">
-          {helpers?.map((user) => ( // JS ternanry conditional operator to check if there users in the db, then render the below component with the users. If not, don't render any child component
+          {helpers?.map((user) => ( // JS ternary conditional operator to check if there are users in the db, then render the below component with the users. If not, don't render any child component
             <GridItem
               key={user.id}
               bgColor="#ffffff"

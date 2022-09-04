@@ -11,7 +11,7 @@ function Navbar({ path }) {
       <nav>
         <Box display="flex" justifyContent="row-start" p="0 20px">
           {navData.map((navItem) => // Go through the items in the navData file via the map method and render them 
-            path === navItem.to ? ( // This ternanry operation will check the active pathname and set the coresponding nav item background to green
+            path === navItem.to ? ( // This ternary operation will check the active path_name and set the coresponding nav item background to green
               <NavLink
                 to={navItem.to}
                 key={navItem.title}

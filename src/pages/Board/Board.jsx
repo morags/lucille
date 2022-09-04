@@ -49,7 +49,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
     pathName(window.location.pathname);
   })
   
-  // Get all the board/lsits which are not archived or deleted
+  // Get all the boards/lists which are not archived or deleted
   const boardList = useLiveQuery(() =>
     db.boards.where({ archived: "false", deleted: "false" }).toArray()
   );
