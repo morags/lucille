@@ -13,7 +13,6 @@ import {
   Divider,
   Textarea,
   Button,
-  SimpleGrid,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useLongPress } from "use-long-press";
@@ -144,7 +143,6 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
               style={{ cursor: "pointer" }}
               position="relative"
               ref={newListRef}
-
               w="150px"
               h="153.75px" // h = (205/200) x w              
               bgSize="100%"
@@ -163,7 +161,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 onBlur={(e) => changeBoardNewValue([board.id, e.target.value])}
                 placeholder="Add List name"
                 border="0px"                
-                style={{ fontSize: `${mdFont - 10}px`}}
+                style={{ fontSize: `${mdFont - 2}px`}}
                 fontWeight="bold"
               />
             </GridItem>
@@ -185,9 +183,8 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 onMouseEnter={() => selectIdName(board.id, board.name)}
                 style={{ cursor: "pointer" }}
                 position="relative"
-
-                w="150px"
-                h="153.75px" // h = (205/200) x w                
+                w="100%"
+                h="100%"            
                 bgSize="100%"
                 bgPosition="center"
                 bgRepeat="no-repeat"
@@ -197,7 +194,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 <Heading
                   textAlign="center"
                   style={{
-                    fontSize: `${mdFont - 10}px`,
+                    fontSize: `${mdFont - 2}px`,
                     filter: `contrast(${fontBright}%)`,
                   }}
                 >
@@ -296,36 +293,29 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
         )}
       </Grid>
       <Divider style={{ border: "3px solid gray", borderRadius: "5px" }} />
-      <Box height="18%">
+      <Box height="18%" overflowY="auto">
         <Archive mdFont={mdFont} fontBright={fontBright} />
       </Box>  
-      
-      {/* Add list icon */}
-      <SimpleGrid columns={5} spacing={15} position="relative" bottom="80px">
-        <Box />
-        <Box />
-        <Box />
-        <Box />
-        <Box>
-          <Button
-            border="3.5px"
-            borderColor="#a9a9a9"
-            bgImage={`url( ${ListIcon} )`}
-            _hover={{ bg: '#a9a9a980', bgImage: `url( ${ListIcon} )`, bgSize:"110%", bgPosition:"center" }}
-            borderRadius="47.5px"
-            w="95px"
-            h="95px"
-            bgSize="100%"
-            bgPosition="center"
-            bgRepeat="no-repeat"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            boxShadow="5px 5px 5px rgb(137, 137, 137)"
-            onClick={addBoard}
-          />
-        </Box>
-      </SimpleGrid>
+      <Button
+        border="3.5px"
+        borderColor="#a9a9a9"
+        bgImage={`url( ${ListIcon} )`}
+        _hover={{ bg: '#a9a9a980', bgImage: `url( ${ListIcon} )`, bgSize:"110%", bgPosition:"center" }}
+        borderRadius="47.5px"
+        w="95px"
+        h="95px"
+        bgSize="100%"
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        boxShadow="5px 5px 5px rgb(137, 137, 137)"
+        onClick={addBoard}
+        position="absolute"
+        right="10px"
+        bottom="1px"
+      />
     </Box>
   );
 }

@@ -85,17 +85,16 @@ function App() {
         border="2px"
         borderColor="gray.500"
         background="rgb(237, 237, 235)"
-        w="100%"
-        height="90vh"
+        width="100%"
+        height="130vh"
         centerContent
         display="flex"
         alignItems="center"
         flexDirection="column"
         pl={0}
         pr={0}
-        maxWidth="720px"
       >
-        <Box h="100%" bg="#e8e8e6" width="100%">
+        <Box h="100%" bg="#e8e8e6" width="inherit">
           <Box h="100%" mt="-5px">
             <Navbar path={pathValue} />
             <Box mr="5px" ml="5px" h="90%">

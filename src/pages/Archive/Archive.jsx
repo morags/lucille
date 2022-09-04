@@ -51,27 +51,15 @@ function Archive({ mdFont, fontBright }) {
   return (
     <Box p="10px" h="full" overflowY="auto">
       <Heading
-        style={{ fontSize: `${mdFont}px`, filter: `contrast(${fontBright}%)` }}
+        style={{ fontSize: `${mdFont - 5}px`, filter: `contrast(${fontBright}%)` }}
         textAlign="center"
       >
-        {archives ? `Archived lists` : ""}
-      </Heading>
-      <Heading
-        mb="15px"
-        style={{
-          fontSize: `${mdFont - 12}px`,
-          filter: `contrast(${fontBright}%)`,
-        }}
-        textAlign="right"
-      >
-        {archives ? `The red digit is the number of remaining tasks` : ""}
+        {archives ? `Archived lists, the red digit is the number of remaining tasks` : ""}
       </Heading>
       <Grid
-        p="0 20px"
-        templateColumns="repeat(4, 1fr)"
-        gap={5}
-        overflowY="auto"
-        height="50%"
+        p="0 10px"
+        templateColumns="repeat(3, 1fr)"
+        gap={2}
       >
         {archives
           ? archives.map((archive) => ( // Check if there are any archived boards/lists, if yes then render the below grid
@@ -80,7 +68,7 @@ function Archive({ mdFont, fontBright }) {
                 display="flex"
                 alignItems="center"
                 justifyContent="space-between"
-                border="4px"
+                border="2px"
                 borderColor="gray.400"
                 p="5px 10px"
                 rounded="2xl"
@@ -96,7 +84,7 @@ function Archive({ mdFont, fontBright }) {
                   as="h3"
                   display="flex"
                   style={{
-                    fontSize: `${mdFont}px`,
+                    fontSize: `${mdFont - 5}px`,
                     filter: `contrast(${fontBright}%)`,
                   }}
                   color="blue.700"
@@ -106,7 +94,7 @@ function Archive({ mdFont, fontBright }) {
                 <Text
                   fontWeight="bold"
                   style={{
-                    fontSize: `${mdFont}px`,
+                    fontSize: `${mdFont - 5}px`,
                     filter: `contrast(${fontBright}%)`,
                   }}
                   color="pink.500"

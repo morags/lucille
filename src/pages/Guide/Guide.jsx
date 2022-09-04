@@ -45,7 +45,7 @@ function Guide({ smFont, fontBright, pathName }) {
                     <Heading
                       as="h3"
                       style={{
-                        fontSize: `${smFont}px`,
+                        fontSize: `${smFont + 5}px`,
                         filter: `contrast(${fontBright}%)`,
                       }}
                     >
@@ -58,7 +58,7 @@ function Guide({ smFont, fontBright, pathName }) {
               <AccordionPanel
                 pb={4}
                 style={{
-                  fontSize: `${smFont}px`,
+                  fontSize: `${smFont + 5}px`,
                   filter: `contrast(${fontBright}%)`,
                 }}
               >
