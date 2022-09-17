@@ -304,11 +304,11 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
       {/* // Add list button here */}
       <Box position="absolute" height="11vh">
         <Button
-          border="3.5px"
+          border="0.1vh"
           borderColor="#a9a9a9"
           bgImage={`url( ${ListIcon} )`}
           _hover={{ bg: '#a9a9a980', bgImage: `url( ${ListIcon} )`, bgSize: "110%", bgPosition: "center" }}
-          borderRadius="47.5px"
+          borderRadius="4.5vh"
           w="9vh"
           h="9vh"
           bgSize="100%"
