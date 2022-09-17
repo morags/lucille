@@ -20,7 +20,7 @@ function Navbar({ path }) {
                 <Button 
                   padding="0.04vh" 
                   bg="#cedcbf" boxSize="10.5vh" margin="1vh" 
-                  boxShadow="5px 5px 5px rgb(137, 137, 137)" 
+                  boxShadow="0.5vh 0.5vh 0.5vh rgb(137, 137, 137)" 
                   border="0.3vh" borderColor="#a9a9a9" borderStyle="solid" borderRadius="1vh" 
                   key={navItem.title}
                   bgImage={navItem.icon}
@@ -40,7 +40,7 @@ function Navbar({ path }) {
                 key={navItem.title}
                 style={{ margin: "0.6vh 0vh 0.1vh 0vh" }}
               >                
-                <Button padding="0.04vh" bg="#ededeb" boxSize="10vh" margin="1vh" boxShadow="5px 5px 5px rgb(137, 137, 137)" border="0.3vh" borderColor="#a9a9a9" borderStyle="solid" 
+                <Button padding="0.04vh" bg="#ededeb" boxSize="10vh" margin="1vh" boxShadow="0.5vh 0.5vh 0.5vh rgb(137, 137, 137)" border="0.3vh" borderColor="#a9a9a9" borderStyle="solid" 
                   borderRadius="1vh"
                   key={navItem.title}
                   bgImage={navItem.icon}

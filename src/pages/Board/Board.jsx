@@ -125,7 +125,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
 
   return (
     <Box height="107vh" margin="0px">
-      <Box height="96vh" p="1vh" backgroundColor="#cedcbf" border='2px' borderColor='gray.500'>
+      <Box height="96vh" p="1vh" backgroundColor="#cedcbf" border="0.2vh" borderColor='gray.500'>
         <Grid 
           padding="1vh"         
           templateColumns="repeat(3, 1fr)"
@@ -156,7 +156,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                boxShadow="5px 5px 5px rgb(137, 137, 137)"
+                boxShadow="0.5vh 0.5vh 0.5vh rgb(137, 137, 137)"
               >
                 <Textarea
                   key={board.id}
@@ -193,7 +193,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                   bgPosition="center"
                   bgRepeat="no-repeat"
                   display="flex"
-                  boxShadow="5px 5px 5px rgb(137, 137, 137)"
+                  boxShadow="0.5vh 0.5vh 0.5vh rgb(137, 137, 137)"
                 >
                   <Heading
                     textAlign="center"
@@ -294,7 +294,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
         </Grid>
         {/* //divider and archive area bgColor={'#9f755e'} */}
         <Box width="54vh">
-          <Divider style={{ border: "3px solid gray", borderRadius: "5px" }} />
+          <Divider style={{ border: "0.3vh solid gray",backgroundColor:"gray", borderRadius: "5px" }} />
           <Box height="18%" overflowY="auto">
             <Archive mdFont={mdFont} fontBright={fontBright} />
           </Box>
@@ -317,7 +317,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          boxShadow="5px 5px 5px rgb(137, 137, 137)"
+          boxShadow="0.48vh 0.48vh 0.48vh rgb(137, 137, 137)"
           onClick={addBoard}
           position="relative"
           left="47vh"          
