@@ -15,3 +15,4 @@ export { default as UserImage } from "./images/defaultProfileImg.svg";
 export { default as NewUser } from "./images/add_user.svg";
 export { default as RestoreList } from "./images/curve-arrow.svg";
 export { default as completedTaskCSS } from "./completedTaskAnimation.css";
+export { default as GreyedOutList } from "./images/archived_parchment.png";

@@ -5,7 +5,7 @@ import { Grid, Box, Heading, Text, GridItem, Image } from "@chakra-ui/react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useLongPress } from "use-long-press";
 import { db } from "../../utils/db";
-import { CancelIcon, RestoreList } from "../../assets";
+import { CancelIcon, RestoreList, GreyedOutList } from "../../assets";
 
 function Archive({ mdFont, fontBright }) {
   // React hook to manage the selected board/list id
@@ -49,58 +49,75 @@ function Archive({ mdFont, fontBright }) {
   };
 
   return (
-    <Box p="10px" h="full" overflowY="auto">
+    <Box h="full" overflowY="auto">
       <Heading
-        style={{ fontSize: `${mdFont - 5}px`, filter: `contrast(${fontBright}%)` }}
+        style={{ fontSize: `${mdFont - 2.5}px`, filter: `contrast(${fontBright}%)` }}
         textAlign="center"
       >
-        {archives ? `Archived lists, the red digit is the number of remaining tasks` : ""}
+        {archives ? `Archived lists` : ""}
       </Heading>
       <Grid
-        p="0 10px"
+        padding="1vh"         
         templateColumns="repeat(3, 1fr)"
-        gap={2}
+        gap={5}
+        overflowY="auto"
+        width="54vh"
+        height="80%"          
+        // bgColor={'#aadcbf'} //green board grid
+        justifySelf= "center"
+        margin='1vh'
       >
         {archives
           ? archives.map((archive) => ( // Check if there are any archived boards/lists, if yes then render the below grid
               <GridItem
                 key={archive.id}
+
+                bgImage={GreyedOutList}
+                border="0.5px"
+                borderColor="#990000"
+                p="10px"
+                style={{ cursor: "pointer" }}
+                position="relative"                
+                w="14.5vh"
+                h="14.86vh" // h = (205/200) x w              
+                bgSize="100%"
+                bgPosition="center"
+                bgRepeat="no-repeat"
                 display="flex"
                 alignItems="center"
-                justifyContent="space-between"
-                border="2px"
-                borderColor="gray.400"
-                p="5px 10px"
-                rounded="2xl"
-                boxShadow="md"
-                mb="20px"
+                justifyContent="center"
+                boxShadow="0.5vh 0.5vh 0.5vh rgb(137, 137, 137)"
+
+
                 bgColor={archive.taskscount <= 0 ? "blue.200" : "#ffffff"}
                 {...bind()}
-                onMouseEnter={() => selectIdName(archive.id, archive.name)}
-                style={{ cursor: "pointer" }}
-                position="relative"
+                onMouseEnter={() => selectIdName(archive.id, archive.name)}                
+                
               >
-                <Heading
-                  as="h3"
-                  display="flex"
-                  style={{
-                    fontSize: `${mdFont - 5}px`,
-                    filter: `contrast(${fontBright}%)`,
-                  }}
-                  color="blue.700"
-                >
-                  {archive.name}
-                </Heading>
-                <Text
-                  fontWeight="bold"
-                  style={{
-                    fontSize: `${mdFont - 5}px`,
-                    filter: `contrast(${fontBright}%)`,
-                  }}
-                  color="pink.500"
-                >
-                  {archive.taskscount}
-                </Text>
+                <Box display="flex" flexDirection="column">
+                  <Heading
+                    as="h3"
+                    display="flex"
+                    style={{
+                      fontSize: `${mdFont - 5}px`,
+                      filter: `contrast(${fontBright}%)`,
+                    }}
+                    color="blue.700"
+                  >
+                    {archive.name}
+                  </Heading>
+                  <Text
+                    fontWeight="bold"
+                    style={{
+                      fontSize: `${mdFont - 5}px`,
+                      filter: `contrast(${fontBright}%)`,
+                    }}                    
+                    color="pink.500"
+                  >
+                    Tasks left: {archive.taskscount}
+                  </Text>
+                </Box>
+
               </GridItem>
             ))
           : ""}

@@ -10,9 +10,10 @@ import {
   GridItem,
   Heading,
   Image,
-  Divider,
+  // Divider,
   Textarea,
   Button,
+  // Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useLongPress } from "use-long-press";
@@ -124,8 +125,9 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
   
 
   return (
-    <Box height="107vh" margin="0px">
-      <Box height="96vh" p="1vh" backgroundColor="#cedcbf" border="0.2vh" borderColor='gray.500'>
+    <Box height="107vh" margin="0px" backgroundColor="">
+      {/* 107 = 47+47+11vh */}
+      <Box height="65.5vh" p="1vh" backgroundColor="#cedcbf" border="0.2vh" borderColor='gray.500'>
         <Grid 
           padding="1vh"         
           templateColumns="repeat(3, 1fr)"
@@ -290,17 +292,34 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
                 cursor="pointer"
                 onClick={() => setButtonPopup(!buttonPopup)} />
             </Box>
-          )}
+          )} 
         </Grid>
         {/* //divider and archive area bgColor={'#9f755e'} */}
-        <Box width="54vh">
+        {/* <Box width="54vh">
           <Divider style={{ border: "0.3vh solid gray",backgroundColor:"gray", borderRadius: "5px" }} />
           <Box height="18%" overflowY="auto">
             <Archive mdFont={mdFont} fontBright={fontBright} />
           </Box>
-        </Box>
+        </Box> */}
         
       </Box>
+
+
+
+      {/* //start of grey archive box ................................. */}
+
+      <Box height="30vh" marginTop="0.5vh" p="1vh" backgroundColor="#cedcbf" border="0.2vh" borderColor='gray.500'>
+        {/* <Text textAlign='center'> Archived lists</Text> */}
+        <Archive mdFont={mdFont} fontBright={fontBright} />
+      </Box>  
+
+      {/* //end of grey archive box ................................... */}
+
+
+
+
+
+
       {/* // Add list button here */}
       <Box position="absolute" height="11vh">
         <Button
