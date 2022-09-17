@@ -83,9 +83,9 @@ function App() {
       <Container
         pb={8} 
         marginTop={3}       
-        border="2px"
-        borderColor="gray.500"
-        background="rgb(237, 237, 235)"
+        // border="2px"
+        // borderColor="gray.500"
+        // background="rgb(37, 37, 235)"
         width="60vh"
         height="120vh"
         centerContent
@@ -95,7 +95,7 @@ function App() {
         pl={0}
         pr={0}
       >
-        <Box h="100%" bg="#e8e8e6" width="inherit">
+        <Box h="120vh" bg="#e8e8e6" width="inherit">
           <Box h="100%" mt="-5px">
             <Navbar path={pathValue} />
             <Box mr="5px" ml="5px" h="90%">
