@@ -124,198 +124,206 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
   
 
   return (
-    <Box position="relative" height="100%" p="15px" backgroundColor="#cedcbf" border='2px' borderColor='gray.500'>
-      <Grid
-        p="0 20px"
-        templateColumns="repeat(3, 1fr)"
-        gap={5}
-        overflowY="auto"
-        height="80%"
-      >
-        {boardList?.map((board) => // Check if there are any boards in the db, if yes then render the grid with items
-          board.new === "true" ? (
-            <GridItem              
-              key={board.id}
-              bgImage={NotebookBG}              
-              border="0.5px"
-              borderColor="#990000"              
-              p="10px"
-              style={{ cursor: "pointer" }}
-              position="relative"
-              ref={newListRef}
-              w="150px"
-              h="153.75px" // h = (205/200) x w              
-              bgSize="100%"
-              bgPosition="center"
-              bgRepeat="no-repeat"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              boxShadow="5px 5px 5px rgb(137, 137, 137)"
-            >
-              <Textarea
+    <Box height="107vh" margin="0px">
+      <Box height="96vh" p="1vh" backgroundColor="#cedcbf" border='2px' borderColor='gray.500'>
+        <Grid 
+          padding="1vh"         
+          templateColumns="repeat(3, 1fr)"
+          gap={5}
+          overflowY="auto"
+          width="54vh"
+          height="80%"          
+          // bgColor={'#aadcbf'} //green board grid
+          justifySelf= "center"
+          margin={'1vh'}
+        >
+          {boardList?.map((board) => // Check if there are any boards in the db, if yes then render the grid with items
+            board.new === "true" ? (
+              <GridItem
                 key={board.id}
-                variant="filled"
-                h="120.75px"
-                resize="none"
-                onBlur={(e) => changeBoardNewValue([board.id, e.target.value])}
-                placeholder="Add List name"
-                border="0px"                
-                style={{ fontSize: `${mdFont - 2}px`}}
-                fontWeight="bold"
-              />
-            </GridItem>
-          ) : (
-            <Link
-              to={`/board/${board.id}`}
-              key={board.id}
-              style={{ height: "150px" }}
-            >
-              <GridItem               
-                key={board.id}
-                bgImage={NotebookBG}                
+                bgImage={NotebookBG}
                 border="0.5px"
-                borderColor="#990000"                
-                alignItems="center"
-                justifyContent="center"
+                borderColor="#990000"
                 p="10px"
-                {...bind()}
-                onMouseEnter={() => selectIdName(board.id, board.name)}
                 style={{ cursor: "pointer" }}
                 position="relative"
-                w="100%"
-                h="100%"            
+                ref={newListRef}
+                w="14.5vh"
+                h="14.86vh" // h = (205/200) x w              
                 bgSize="100%"
                 bgPosition="center"
                 bgRepeat="no-repeat"
-                display="flex"                
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
                 boxShadow="5px 5px 5px rgb(137, 137, 137)"
               >
-                <Heading
-                  textAlign="center"
-                  style={{
-                    fontSize: `${mdFont - 2}px`,
-                    filter: `contrast(${fontBright}%)`,
-                  }}
-                >
-                  {board.name}
-                </Heading>
+                <Textarea
+                  key={board.id}
+                  variant="filled"
+                  h="14.86vh"
+                  resize="none"
+                  onBlur={(e) => changeBoardNewValue([board.id, e.target.value])}
+                  placeholder="Add List name"
+                  border="0px"
+                  style={{ fontSize: `${mdFont - 2}px` }}
+                  fontWeight="bold" />
               </GridItem>
-            </Link>
-          )
-        )}
+            ) : (
+              <Link
+                to={`/board/${board.id}`}
+                key={board.id}
+                style={{ height: "150px" }}
+              >
+                <GridItem
+                  key={board.id}
+                  bgImage={NotebookBG}
+                  border="0.5px"
+                  borderColor="#990000"
+                  alignItems="center"
+                  justifyContent="center"
+                  p="10px"
+                  {...bind()}
+                  onMouseEnter={() => selectIdName(board.id, board.name)}
+                  style={{ cursor: "pointer" }}
+                  position="relative"
+                  w="14.5vh"
+                  h="14.86vh" // h = (205/200) x w  
+                  bgSize="100%"
+                  bgPosition="center"
+                  bgRepeat="no-repeat"
+                  display="flex"
+                  boxShadow="5px 5px 5px rgb(137, 137, 137)"
+                >
+                  <Heading
+                    textAlign="center"
+                    style={{
+                      fontSize: `${mdFont - 2}px`,
+                      filter: `contrast(${fontBright}%)`,
+                    }}
+                  >
+                    {board.name}
+                  </Heading>
+                </GridItem>
+              </Link>
+            )
+          )}
 
-        {buttonPopup && ( // If popup state value is true, show the extra options
-          <Box
-            backgroundColor="#cccccc"
-            position="absolute"
-            zIndex="1"
-            width="full"
-            h="full"
-            opacity="0.9"
-            display="flex"
-            alignItems="start"
-            p="20px"
-            justifyContent="center"
-            flexDirection="column"
-            left="0"
-            top="0"
-            onClick={() => setButtonPopup(!buttonPopup)}
-          >
-            <Heading
-              as="h2"
-              mb="20px"
-              ml="20px"
-              style={{
-                fontSize: `${mdFont}px`,
-                filter: `contrast(${fontBright}%)`,
-              }}
+          {buttonPopup && ( // If popup state value is true, show the extra options
+            <Box
+              backgroundColor="#cccccc"
+              position="absolute"
+              zIndex="1"
+              width="full"
+              h="full"
+              opacity="0.9"
+              display="flex"
+              alignItems="start"
+              p="20px"
+              justifyContent="center"
+              flexDirection="column"
+              left="0"
+              top="0"
+              onClick={() => setButtonPopup(!buttonPopup)}
             >
-              {selectedName}
-            </Heading>
-            <Box display="flex">
-              <Image
-                src={DeleteIcon}
-                w="120px"
-                m="0px 10px"
-                cursor="pointer"
-                onClick={() => deleteBoard(selectedId)}
-              />
-              <Image
-                src={MoveArchiveIcon}
-                w="120px"
-                m="0px 10px"
-                cursor="pointer"
-                onClick={() => archiveBoard(selectedId)}
-              />
-              <Box position="relative">
+              <Heading
+                as="h2"
+                mb="20px"
+                ml="20px"
+                style={{
+                  fontSize: `${mdFont}px`,
+                  filter: `contrast(${fontBright}%)`,
+                }}
+              >
+                {selectedName}
+              </Heading>
+              <Box display="flex">
                 <Image
-                  src={ShareIcon}
+                  src={DeleteIcon}
                   w="120px"
                   m="0px 10px"
                   cursor="pointer"
-                  onClick={shareBoard}
-                />
-                <Box position="absolute" display="flex">
-                  {sharePopup && // If popup state value is true, show the extra options for sharing
-                    allHelpers?.map((helper) => (
-                      <Box
-                        key={helper.id}
-                        onClick={() => window.open("mailto:" +helper.email +"?subject=I need your help with these tasks&body=" + allTasks?.filter((task) => task.boardid === String(selectedId)).map((task) => task.task).toString())} // eslint-disable-line
-                        backgroundColor="#ffffff"
-                        w="80px"
-                        h="80px"
-                        m="10px"
-                        p="10px"
-                        rounded="full"
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                      >
-                        <Heading style={{ fontSize: `${smFont}px` }}>
-                          {helper.name}
-                        </Heading>
-                      </Box>
-                    ))}
+                  onClick={() => deleteBoard(selectedId)} />
+                <Image
+                  src={MoveArchiveIcon}
+                  w="120px"
+                  m="0px 10px"
+                  cursor="pointer"
+                  onClick={() => archiveBoard(selectedId)} />
+                <Box position="relative">
+                  <Image
+                    src={ShareIcon}
+                    w="120px"
+                    m="0px 10px"
+                    cursor="pointer"
+                    onClick={shareBoard} />
+                  <Box position="absolute" display="flex">
+                    {sharePopup && // If popup state value is true, show the extra options for sharing
+                      allHelpers?.map((helper) => (
+                        <Box
+                          key={helper.id}
+                          onClick={() => window.open("mailto:" + helper.email + "?subject=I need your help with these tasks&body=" + allTasks?.filter((task) => task.boardid === String(selectedId)).map((task) => task.task).toString())} // eslint-disable-line
+                          backgroundColor="#ffffff"
+                          w="80px"
+                          h="80px"
+                          m="10px"
+                          p="10px"
+                          rounded="full"
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <Heading style={{ fontSize: `${smFont}px` }}>
+                            {helper.name}
+                          </Heading>
+                        </Box>
+                      ))}
+                  </Box>
                 </Box>
               </Box>
+              <Image
+                src={CancelIcon}
+                w="40px"
+                position="absolute"
+                top="25px"
+                right="25px"
+                cursor="pointer"
+                onClick={() => setButtonPopup(!buttonPopup)} />
             </Box>
-            <Image
-              src={CancelIcon}
-              w="40px"
-              position="absolute"
-              top="25px"
-              right="25px"
-              cursor="pointer"
-              onClick={() => setButtonPopup(!buttonPopup)}
-            />
+          )}
+        </Grid>
+        {/* //divider and archive area bgColor={'#9f755e'} */}
+        <Box width="54vh">
+          <Divider style={{ border: "3px solid gray", borderRadius: "5px" }} />
+          <Box height="18%" overflowY="auto">
+            <Archive mdFont={mdFont} fontBright={fontBright} />
           </Box>
-        )}
-      </Grid>
-      <Divider style={{ border: "3px solid gray", borderRadius: "5px" }} />
-      <Box height="18%" overflowY="auto">
-        <Archive mdFont={mdFont} fontBright={fontBright} />
-      </Box>  
-      <Button
-        border="3.5px"
-        borderColor="#a9a9a9"
-        bgImage={`url( ${ListIcon} )`}
-        _hover={{ bg: '#a9a9a980', bgImage: `url( ${ListIcon} )`, bgSize:"110%", bgPosition:"center" }}
-        borderRadius="47.5px"
-        w="95px"
-        h="95px"
-        bgSize="100%"
-        bgPosition="center"
-        bgRepeat="no-repeat"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        boxShadow="5px 5px 5px rgb(137, 137, 137)"
-        onClick={addBoard}
-        position="absolute"
-        right="10px"
-        bottom="1px"
-      />
+        </Box>
+        
+      </Box>
+      {/* // Add list button here */}
+      <Box position="absolute" height="11vh">
+        <Button
+          border="3.5px"
+          borderColor="#a9a9a9"
+          bgImage={`url( ${ListIcon} )`}
+          _hover={{ bg: '#a9a9a980', bgImage: `url( ${ListIcon} )`, bgSize: "110%", bgPosition: "center" }}
+          borderRadius="47.5px"
+          w="9vh"
+          h="9vh"
+          bgSize="100%"
+          bgPosition="center"
+          bgRepeat="no-repeat"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          boxShadow="5px 5px 5px rgb(137, 137, 137)"
+          onClick={addBoard}
+          position="relative"
+          left="47vh"          
+          top="1vh" />
+      </Box>
+
     </Box>
   );
 }

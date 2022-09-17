@@ -81,11 +81,12 @@ function App() {
   return (
     <main className="app">
       <Container
-        pb={8}
+        pb={8} 
+        marginTop={3}       
         border="2px"
         borderColor="gray.500"
         background="rgb(237, 237, 235)"
-        width="100%"
+        width="60vh"
         height="120vh"
         centerContent
         display="flex"
