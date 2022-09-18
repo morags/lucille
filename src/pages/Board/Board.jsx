@@ -134,7 +134,7 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
           gap={5}
           overflowY="auto"
           width="54vh"
-          height="80%"          
+          height="100%"          
           // bgColor={'#aadcbf'} //green board grid
           justifySelf= "center"
           margin={'1vh'}
@@ -162,14 +162,17 @@ function Board({ mdFont, fontBright, smFont, pathName }) {
               >
                 <Textarea
                   key={board.id}
-                  variant="filled"
+                  variant="filled"                  
                   h="14.86vh"
+                  maxWidth={'14.5vh'}
                   resize="none"
                   onBlur={(e) => changeBoardNewValue([board.id, e.target.value])}
                   placeholder="Add List name"
                   border="0px"
                   style={{ fontSize: `${mdFont - 2}px` }}
-                  fontWeight="bold" />
+                  fontWeight="bold"                   
+                />
+
               </GridItem>
             ) : (
               <Link
