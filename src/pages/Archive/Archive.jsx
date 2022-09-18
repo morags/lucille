@@ -49,7 +49,7 @@ function Archive({ mdFont, fontBright }) {
   };
 
   return (
-    <Box h="full" overflowY="auto">
+    <Box h="full">
       <Heading
         style={{ fontSize: `${mdFont - 2.5}px`, filter: `contrast(${fontBright}%)` }}
         textAlign="center"
